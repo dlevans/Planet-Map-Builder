@@ -1,0 +1,2301 @@
+{
+  "rooms": {
+    "hall-a": {
+      "label": "Hall A",
+      "group": "Bartle Hall",
+      "baseImage": "images/bartle_hall/hall-a.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "hall-b": {
+      "label": "Hall B",
+      "group": "Bartle Hall",
+      "baseImage": "images/bartle_hall/hall-b.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "hall-c": {
+      "label": "Hall C",
+      "group": "Bartle Hall",
+      "baseImage": "images/bartle_hall/hall-c.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "hall-d": {
+      "label": "Hall D",
+      "group": "Bartle Hall",
+      "baseImage": "images/bartle_hall/hall-d.png",
+      "imageWidth": 2595,
+      "imageHeight": 2384,
+      "booths": [
+        {
+          "id": "TPO",
+          "x": 2480,
+          "y": 2080,
+          "label": "Themed Photo Ops"
+        },
+        {
+          "id": "2311",
+          "x": 1500,
+          "y": 2080,
+          "label": "501st Legion / Star Wars Costuming Groups"
+        },
+        {
+          "id": "2310",
+          "x": 1620,
+          "y": 2080
+        },
+        {
+          "id": "2309",
+          "x": 1740,
+          "y": 2080,
+          "label": "Another Castle Creations"
+        },
+        {
+          "id": "2308",
+          "x": 1840,
+          "y": 2080
+        },
+        {
+          "id": "2307",
+          "x": 1960,
+          "y": 2080
+        },
+        {
+          "id": "2306",
+          "x": 2080,
+          "y": 2080
+        },
+        {
+          "id": "2305",
+          "x": 2200,
+          "y": 2080,
+          "label": "Melanie Jasmine"
+        },
+        {
+          "id": "2304",
+          "x": 2320,
+          "y": 2080,
+          "label": "Sparqy Cosplay"
+        },
+        {
+          "id": "C1",
+          "x": 1740,
+          "y": 1840
+        },
+        {
+          "id": "C2",
+          "x": 1840,
+          "y": 1840
+        },
+        {
+          "id": "C10",
+          "x": 1660,
+          "y": 1680,
+          "label": "Folxy Cosplay"
+        },
+        {
+          "id": "C11",
+          "x": 1720,
+          "y": 1680,
+          "label": "Diana the Great"
+        },
+        {
+          "id": "C12",
+          "x": 1800,
+          "y": 1680,
+          "label": "Fancy Jen Cosplay"
+        },
+        {
+          "id": "C13",
+          "x": 1880,
+          "y": 1680,
+          "label": "SKS Props"
+        },
+        {
+          "id": "C15",
+          "x": 2060,
+          "y": 1680,
+          "label": "Propcustomz"
+        },
+        {
+          "id": "C16",
+          "x": 2100,
+          "y": 1680,
+          "label": "Starla Wynn Cosplay"
+        },
+        {
+          "id": "C17",
+          "x": 2180,
+          "y": 1680,
+          "label": "Stitchmonkey Cosplay"
+        },
+        {
+          "id": "A10",
+          "x": 1700,
+          "y": 1620,
+          "label": "WALKIN' & ROLLIN' COSTUMES"
+        },
+        {
+          "id": "A12",
+          "x": 1840,
+          "y": 1620,
+          "label": "HAMMERSPACE Community Wrksp & Makerspace"
+        },
+        {
+          "id": "A15",
+          "x": 2060,
+          "y": 1620,
+          "label": "Cosplay Repair / Figments and Filaments"
+        },
+        {
+          "id": "A17",
+          "x": 2180,
+          "y": 1620,
+          "label": "Amber Harvey Cosplay"
+        },
+        {
+          "id": "CPMU",
+          "x": 2480,
+          "y": 1660,
+          "label": "Cosplay Photo Meet Ups"
+        },
+        {
+          "id": "A22",
+          "x": 1740,
+          "y": 1480,
+          "label": "Hotends Cosplay"
+        },
+        {
+          "id": "A21",
+          "x": 1700,
+          "y": 1480
+        },
+        {
+          "id": "A20",
+          "x": 1660,
+          "y": 1480,
+          "label": "Heart Of America Japan – America Society"
+        },
+        {
+          "id": "A30",
+          "x": 1620,
+          "y": 1420,
+          "label": "Renewal by Andersen"
+        },
+        {
+          "id": "A31",
+          "x": 1660,
+          "y": 1420,
+          "label": "Level One Game Shop"
+        },
+        {
+          "id": "A32",
+          "x": 1700,
+          "y": 1420,
+          "label": "Paws & Prairies"
+        },
+        {
+          "id": "A33",
+          "x": 1740,
+          "y": 1420,
+          "label": "LeafFilter Gutter Protection"
+        },
+        {
+          "id": "A40",
+          "x": 1620,
+          "y": 1320,
+          "label": "From the Earth – Illicit"
+        },
+        {
+          "id": "A41",
+          "x": 1660,
+          "y": 1320,
+          "label": "Pawn & Pint"
+        },
+        {
+          "id": "A42",
+          "x": 1700,
+          "y": 1320,
+          "label": "Mindgames and Magic"
+        },
+        {
+          "id": "A43",
+          "x": 1740,
+          "y": 1320,
+          "label": "Hague Quality Water"
+        },
+        {
+          "id": "A50",
+          "x": 1620,
+          "y": 1240,
+          "label": "Boulevard Brewing Co."
+        },
+        {
+          "id": "A51",
+          "x": 1660,
+          "y": 1240,
+          "label": "Naka-Kon"
+        },
+        {
+          "id": "A52",
+          "x": 1740,
+          "y": 1240
+        },
+        {
+          "id": "A55",
+          "x": 2020,
+          "y": 1240,
+          "label": "Wild Bill's Soda"
+        },
+        {
+          "id": "A69",
+          "x": 2480,
+          "y": 1240,
+          "label": "AEZ Esports Arena powered by LevelUP"
+        },
+        {
+          "id": "A81",
+          "x": 2480,
+          "y": 1100,
+          "label": "Planet Anime Information Booth AEZ"
+        },
+        {
+          "id": "Vendor",
+          "x": 2480,
+          "y": 940,
+          "label": "All American"
+        },
+        {
+          "id": "Food",
+          "x": 2480,
+          "y": 320,
+          "label": "KC Ramen"
+        },
+        {
+          "id": "901",
+          "x": 200,
+          "y": 1840,
+          "label": "Collector's Cache"
+        },
+        {
+          "id": "801",
+          "x": 320,
+          "y": 1840,
+          "label": "Amazing Imaginarium What's in the Box"
+        },
+        {
+          "id": "701",
+          "x": 640,
+          "y": 1840,
+          "label": "Weapon direct"
+        },
+        {
+          "id": "703",
+          "x": 640,
+          "y": 1740,
+          "label": "The Legging Lass – Jamie Richter"
+        },
+        {
+          "id": "601",
+          "x": 820,
+          "y": 1840,
+          "label": "Toynk Toys"
+        },
+        {
+          "id": "809",
+          "x": 320,
+          "y": 1560,
+          "label": "Archangel Games"
+        },
+        {
+          "id": "808",
+          "x": 600,
+          "y": 1560,
+          "label": "Laser Monkey Sabers"
+        },
+        {
+          "id": "709",
+          "x": 640,
+          "y": 1560,
+          "label": "Ziggy's West"
+        },
+        {
+          "id": "708",
+          "x": 820,
+          "y": 1560,
+          "label": "Jay's CD and Hobby"
+        },
+        {
+          "id": "609",
+          "x": 900,
+          "y": 1560,
+          "label": "Bubble Wrapp"
+        },
+        {
+          "id": "509",
+          "x": 1100,
+          "y": 1560,
+          "label": "Lolita Collective"
+        },
+        {
+          "id": "A75a",
+          "x": 1400,
+          "y": 1540,
+          "label": "Itasha"
+        },
+        {
+          "id": "813",
+          "x": 320,
+          "y": 1440,
+          "label": "Anime Pop"
+        },
+        {
+          "id": "713",
+          "x": 640,
+          "y": 1440,
+          "label": "Packrat's Hoard"
+        },
+        {
+          "id": "714",
+          "x": 860,
+          "y": 1440,
+          "label": "Dragon Alley"
+        },
+        {
+          "id": "615",
+          "x": 900,
+          "y": 1440,
+          "label": "Ubermonk3D"
+        },
+        {
+          "id": "613",
+          "x": 900,
+          "y": 1500,
+          "label": "Warez Games"
+        },
+        {
+          "id": "614",
+          "x": 1080,
+          "y": 1440,
+          "label": "Patch Man"
+        },
+        {
+          "id": "515",
+          "x": 1160,
+          "y": 1440,
+          "label": "Aki Clothing"
+        },
+        {
+          "id": "A75b",
+          "x": 1400,
+          "y": 1100,
+          "label": "Itasha"
+        },
+        {
+          "id": "521",
+          "x": 960,
+          "y": 1040,
+          "label": "BBZ Customs",
+          "socials": []
+        },
+        {
+          "id": "621",
+          "x": 800,
+          "y": 1040,
+          "label": "MDRN OTAKU",
+          "socials": []
+        },
+        {
+          "id": "720",
+          "x": 720,
+          "y": 1040,
+          "label": "Fandom HD",
+          "socials": []
+        },
+        {
+          "id": "721",
+          "x": 540,
+          "y": 1040,
+          "label": "Utopia Toys and Models",
+          "socials": []
+        },
+        {
+          "id": "820",
+          "x": 480,
+          "y": 1040,
+          "label": "Painted Dragon Studios",
+          "socials": []
+        },
+        {
+          "id": "821",
+          "x": 360,
+          "y": 1040,
+          "label": "triforce cosplay and accessories",
+          "socials": []
+        },
+        {
+          "id": "825",
+          "x": 360,
+          "y": 860,
+          "label": "Haha Anime and Games"
+        },
+        {
+          "id": "824",
+          "x": 480,
+          "y": 860,
+          "label": "KC Book Beat",
+          "socials": []
+        },
+        {
+          "id": "725",
+          "x": 560,
+          "y": 860,
+          "label": "Blaze Manga Productions",
+          "socials": []
+        },
+        {
+          "id": "724",
+          "x": 720,
+          "y": 860,
+          "label": "Atelier in April"
+        },
+        {
+          "id": "625",
+          "x": 800,
+          "y": 860,
+          "label": "Brett Woods Fine Art"
+        },
+        {
+          "id": "525",
+          "x": 940,
+          "y": 860,
+          "label": "Musetap Studios",
+          "socials": []
+        },
+        {
+          "id": "622",
+          "x": 880,
+          "y": 900,
+          "label": "The Witch and The Geek",
+          "socials": []
+        },
+        {
+          "id": "523",
+          "x": 940,
+          "y": 900,
+          "label": "Arie Monroe",
+          "socials": []
+        },
+        {
+          "id": "624",
+          "x": 880,
+          "y": 860,
+          "label": "Krecic, Leeanne",
+          "socials": []
+        },
+        {
+          "id": "2245",
+          "x": 280,
+          "y": 240,
+          "label": "Sen-chan's Art"
+        },
+        {
+          "id": "2244",
+          "x": 320,
+          "y": 240,
+          "label": "Sen-chan's Art"
+        },
+        {
+          "id": "2243",
+          "x": 360,
+          "y": 240,
+          "label": "Comic Endeavors"
+        },
+        {
+          "id": "2242",
+          "x": 400,
+          "y": 240,
+          "label": "Cosmic Heart Attacks"
+        },
+        {
+          "id": "2241",
+          "x": 440,
+          "y": 240,
+          "label": "Fr00ggko"
+        },
+        {
+          "id": "2240",
+          "x": 480,
+          "y": 240,
+          "label": "SoftGoth"
+        },
+        {
+          "id": "2239",
+          "x": 520,
+          "y": 240,
+          "label": "Haunted Amusement Park"
+        },
+        {
+          "id": "2238",
+          "x": 560,
+          "y": 240,
+          "label": "Toughbunnie Productions"
+        },
+        {
+          "id": "2237",
+          "x": 600,
+          "y": 240,
+          "label": "Batmyths"
+        },
+        {
+          "id": "2236",
+          "x": 640,
+          "y": 240,
+          "label": "SSSONNY"
+        },
+        {
+          "id": "2235",
+          "x": 680,
+          "y": 240,
+          "label": "Ashley Morgan Art"
+        },
+        {
+          "id": "2234",
+          "x": 720,
+          "y": 240,
+          "label": "BluBoiArt"
+        },
+        {
+          "id": "2233",
+          "x": 760,
+          "y": 240,
+          "label": "Comic Endeavors"
+        },
+        {
+          "id": "2232",
+          "x": 800,
+          "y": 240,
+          "label": "Comic Endeavors"
+        },
+        {
+          "id": "2231",
+          "x": 840,
+          "y": 240,
+          "label": "KLAW Studio"
+        },
+        {
+          "id": "2230",
+          "x": 880,
+          "y": 240,
+          "label": "Laughing Crow, The"
+        },
+        {
+          "id": "938",
+          "x": 380,
+          "y": 460,
+          "label": "Dragon Feathers Illustration"
+        },
+        {
+          "id": "936",
+          "x": 380,
+          "y": 500,
+          "label": "Freakijiki"
+        },
+        {
+          "id": "934",
+          "x": 380,
+          "y": 560,
+          "label": "Jenafrid Art"
+        },
+        {
+          "id": "932",
+          "x": 380,
+          "y": 620,
+          "label": "Andy Arcana"
+        },
+        {
+          "id": "930",
+          "x": 380,
+          "y": 680,
+          "label": "Bri Crozier Art"
+        },
+        {
+          "id": "839",
+          "x": 420,
+          "y": 460,
+          "label": "Art Chica Marcum"
+        },
+        {
+          "id": "837",
+          "x": 420,
+          "y": 500,
+          "label": "Art Chica Marcum"
+        },
+        {
+          "id": "835",
+          "x": 420,
+          "y": 560,
+          "label": "Nana Marchae Art"
+        },
+        {
+          "id": "833",
+          "x": 420,
+          "y": 620,
+          "label": "Crazy Red Artist"
+        },
+        {
+          "id": "831",
+          "x": 420,
+          "y": 680,
+          "label": "Crazy Red Artist"
+        },
+        {
+          "id": "838",
+          "x": 520,
+          "y": 460,
+          "label": "Sykopop"
+        },
+        {
+          "id": "836",
+          "x": 520,
+          "y": 500,
+          "label": "Smolmilkyways"
+        },
+        {
+          "id": "834",
+          "x": 520,
+          "y": 560,
+          "label": "IsaacRetroArt"
+        },
+        {
+          "id": "832",
+          "x": 520,
+          "y": 620,
+          "label": "Yimmygee"
+        },
+        {
+          "id": "830",
+          "x": 520,
+          "y": 680,
+          "label": "Art of David Wong"
+        },
+        {
+          "id": "739",
+          "x": 560,
+          "y": 460,
+          "label": "Supernova Art Studio"
+        },
+        {
+          "id": "737",
+          "x": 560,
+          "y": 500,
+          "label": "Speedlag"
+        },
+        {
+          "id": "735",
+          "x": 560,
+          "y": 560,
+          "label": "Jason Turner Art"
+        },
+        {
+          "id": "733",
+          "x": 560,
+          "y": 620,
+          "label": "Jason Turner Art"
+        },
+        {
+          "id": "731",
+          "x": 560,
+          "y": 680,
+          "label": "MallyJanks"
+        },
+        {
+          "id": "738",
+          "x": 720,
+          "y": 460,
+          "label": "MissGreenKitty"
+        },
+        {
+          "id": "736",
+          "x": 720,
+          "y": 500,
+          "label": "onemegawatt"
+        },
+        {
+          "id": "734",
+          "x": 720,
+          "y": 560,
+          "label": "Inksmoker Studio"
+        },
+        {
+          "id": "732",
+          "x": 720,
+          "y": 620,
+          "label": "Empty Echo"
+        },
+        {
+          "id": "730",
+          "x": 720,
+          "y": 680,
+          "label": "Phib Studios"
+        },
+        {
+          "id": "639",
+          "x": 760,
+          "y": 460,
+          "label": "Blacksunflower Studios"
+        },
+        {
+          "id": "637",
+          "x": 760,
+          "y": 500,
+          "label": "EmbyMarissa"
+        },
+        {
+          "id": "635",
+          "x": 760,
+          "y": 560,
+          "label": "EmbyMarissa"
+        },
+        {
+          "id": "633",
+          "x": 760,
+          "y": 620,
+          "label": "RFCreations"
+        },
+        {
+          "id": "631",
+          "x": 760,
+          "y": 680,
+          "label": "LucidSky"
+        },
+        {
+          "id": "638",
+          "x": 880,
+          "y": 460,
+          "label": "Soviviii"
+        },
+        {
+          "id": "636",
+          "x": 880,
+          "y": 500
+        },
+        {
+          "id": "634",
+          "x": 880,
+          "y": 560,
+          "label": "Shouaart"
+        },
+        {
+          "id": "632",
+          "x": 880,
+          "y": 620,
+          "label": "SaBasse Studios"
+        },
+        {
+          "id": "630",
+          "x": 880,
+          "y": 680,
+          "label": "takosumi"
+        },
+        {
+          "id": "539",
+          "x": 920,
+          "y": 460,
+          "label": "Painty's Corner"
+        },
+        {
+          "id": "537",
+          "x": 920,
+          "y": 500,
+          "label": "Olivia Oltmanns Art"
+        },
+        {
+          "id": "535",
+          "x": 920,
+          "y": 560,
+          "label": "Fenton, Josie"
+        },
+        {
+          "id": "533",
+          "x": 920,
+          "y": 620,
+          "label": "Caitieboo"
+        },
+        {
+          "id": "531",
+          "x": 920,
+          "y": 680,
+          "label": "Monkey Minion Press – Dane Ault"
+        },
+        {
+          "id": "538",
+          "x": 1040,
+          "y": 460,
+          "label": "Magical Mews"
+        },
+        {
+          "id": "536",
+          "x": 1040,
+          "y": 500,
+          "label": "TangolaDude"
+        },
+        {
+          "id": "534",
+          "x": 1040,
+          "y": 560,
+          "label": "Tabrakadabra"
+        },
+        {
+          "id": "532",
+          "x": 1040,
+          "y": 620,
+          "label": "Kluthe, Andy"
+        },
+        {
+          "id": "530",
+          "x": 1040,
+          "y": 680,
+          "label": "Champion Comics"
+        },        
+        {
+          "id": "1038",
+          "label": "Radiant Grey",
+          "x": 220,
+          "y": 460,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "939",
+          "label": "muddymelly",
+          "x": 280,
+          "y": 460,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "1036",
+          "label": "Radiant Grey",
+          "x": 220,
+          "y": 500,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "937",
+          "label": "Lightsintheskye Studios",
+          "x": 280,
+          "y": 500,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "1034",
+          "label": "Dragon Child Graphics",
+          "x": 220,
+          "y": 560,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "935",
+          "label": "Nestled Naga Studio",
+          "x": 280,
+          "y": 560,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "1032",
+          "label": "Pew-PewStudio",
+          "x": 220,
+          "y": 620,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "933",
+          "label": "Hiinatsu",
+          "x": 280,
+          "y": 620,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "1030",
+          "label": "Cheeky Illustrations",
+          "x": 220,
+          "y": 680,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "931",
+          "label": "Cassandra Byard: Insomniac Illustrations",
+          "x": 280,
+          "y": 680,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "1022",
+          "label": "Derrick's Portraits",
+          "x": 240,
+          "y": 920,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "923",
+          "label": "Luxilium Shop",
+          "x": 300,
+          "y": 920,
+          "description": "",
+          "socials": []
+        },
+        {
+          "id": "921",
+          "label": "Supernatural & Hermiones World",
+          "x": 260,
+          "y": 1040,
+          "description": "",
+          "socials": []
+        }
+      ]
+    },
+    "hall-e": {
+      "label": "Hall E",
+      "group": "Bartle Hall",
+      "baseImage": "images/bartle_hall/hall-e.png",
+      "imageWidth": 2805,
+      "imageHeight": 2384,
+      "booths": [
+        {
+          "id": "ADA Guest Services",
+          "x": 1160,
+          "y": 220,
+          "socials": []
+        },
+        {
+          "id": "3441",
+          "x": 720,
+          "y": 520,
+          "socials": [],
+          "label": "Zach Aguilar",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3439",
+          "x": 720,
+          "y": 620,
+          "socials": [],
+          "label": "Colleen Clinkenbeard",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3437",
+          "x": 720,
+          "y": 700,
+          "socials": [],
+          "label": "J Michael Tatum",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3435",
+          "x": 720,
+          "y": 780,
+          "socials": [],
+          "label": "Brandon McInnis",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3433",
+          "x": 720,
+          "y": 860,
+          "socials": [],
+          "label": "Jamie Marchi",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3431",
+          "x": 720,
+          "y": 940,
+          "socials": [],
+          "label": "Daniel Lasker",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3429",
+          "x": 720,
+          "y": 1020,
+          "socials": [],
+          "label": "Martial T. Batchamen",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3427",
+          "x": 720,
+          "y": 1080,
+          "socials": [],
+          "label": "Camrus Johnson",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3421",
+          "x": 720,
+          "y": 1160,
+          "socials": [],
+          "label": "Michaela Jill Murphy",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3419",
+          "x": 720,
+          "y": 1240,
+          "socials": [],
+          "label": "Greg Baldwin",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3417",
+          "x": 720,
+          "y": 1320,
+          "socials": [],
+          "label": "Janeet Varney",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3415",
+          "x": 720,
+          "y": 1380,
+          "socials": [],
+          "label": "Cherami Leigh",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3413",
+          "x": 720,
+          "y": 1460,
+          "socials": [],
+          "label": "Michelle Ruff",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3411",
+          "x": 720,
+          "y": 1540,
+          "socials": [],
+          "label": "Charlet Chung",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3407",
+          "x": 720,
+          "y": 1620,
+          "socials": [],
+          "label": "Jennie Kwan",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3405",
+          "x": 720,
+          "y": 1700,
+          "socials": [],
+          "label": "Olivia Hack",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3403",
+          "x": 720,
+          "y": 1820,
+          "socials": [],
+          "label": "Jack DeSena",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "3401",
+          "x": 720,
+          "y": 1920,
+          "socials": [],
+          "label": "Zach Eisen",
+          "description": "Celebrity Row"
+        },
+        {
+          "id": "1738",
+          "x": 1240,
+          "y": 460,
+          "label": "Bandit Bands",
+          "socials": []
+        },
+        {
+          "id": "1736",
+          "x": 1240,
+          "y": 520,
+          "label": "ZenJumps Chainmaille",
+          "socials": []
+        },
+        {
+          "id": "1734",
+          "x": 1240,
+          "y": 580,
+          "label": "Neko Royale",
+          "socials": []
+        },
+        {
+          "id": "1732",
+          "x": 1240,
+          "y": 620,
+          "label": "Cat Nerd Creations",
+          "socials": []
+        },
+        {
+          "id": "1730",
+          "x": 1240,
+          "y": 680,
+          "label": "Cat Nerd Creations",
+          "socials": []
+        },
+        {
+          "id": "1639",
+          "x": 1320,
+          "y": 460,
+          "label": "Cerberus Treasure",
+          "socials": []
+        },
+        {
+          "id": "1637",
+          "x": 1320,
+          "y": 520,
+          "label": "The KC Crochet Guy",
+          "socials": []
+        },
+        {
+          "id": "1635",
+          "x": 1320,
+          "y": 580,
+          "label": "Glassy Nerd",
+          "socials": []
+        },
+        {
+          "id": "1633",
+          "x": 1320,
+          "y": 620,
+          "label": "Yoki's Crafty Creations",
+          "socials": []
+        },
+        {
+          "id": "1631",
+          "x": 1320,
+          "y": 680,
+          "label": "Brass Engine Studio",
+          "socials": []
+        },
+        {
+          "id": "1638",
+          "x": 1580,
+          "y": 460,
+          "label": "Sugarbplays DIY Cross Stitch",
+          "socials": []
+        },
+        {
+          "id": "1636",
+          "x": 1580,
+          "y": 500,
+          "label": "Leighton's Nerd Space",
+          "socials": []
+        },
+        {
+          "id": "1634",
+          "x": 1580,
+          "y": 560,
+          "label": "Thompkins, Ivy",
+          "socials": []
+        },
+        {
+          "id": "1632",
+          "x": 1580,
+          "y": 620,
+          "label": "Overnight Plush",
+          "socials": []
+        },
+        {
+          "id": "1630",
+          "x": 1580,
+          "y": 680,
+          "label": "Nerdy Foxtails",
+          "socials": []
+        },
+        {
+          "id": "1539",
+          "x": 1640,
+          "y": 460,
+          "label": "Woven Rainbows By Erin",
+          "socials": []
+        },
+        {
+          "id": "1537",
+          "x": 1640,
+          "y": 500,
+          "label": "Woven Rainbows By Erin",
+          "socials": []
+        },
+        {
+          "id": "1535",
+          "x": 1640,
+          "y": 560,
+          "label": "Angry Tanuki",
+          "socials": []
+        },
+        {
+          "id": "1531",
+          "x": 1640,
+          "y": 680,
+          "label": "Majikah Perfumery",
+          "socials": []
+        },
+        {
+          "id": "1533",
+          "x": 1640,
+          "y": 620,
+          "label": "Coin Ring Creation by Curt F.",
+          "socials": []
+        },
+        {
+          "id": "1538",
+          "x": 1820,
+          "y": 460,
+          "label": "Cute Coyote Boutique",
+          "socials": []
+        },
+        {
+          "id": "1536",
+          "x": 1820,
+          "y": 500,
+          "label": "Tan-Man Studios",
+          "socials": []
+        },
+        {
+          "id": "1534",
+          "x": 1820,
+          "y": 560,
+          "label": "Tigerstripe Studio",
+          "socials": []
+        },
+        {
+          "id": "1532",
+          "x": 1820,
+          "y": 620,
+          "label": "Stars and Honey Studios",
+          "socials": []
+        },
+        {
+          "id": "1530",
+          "x": 1820,
+          "y": 680,
+          "label": "Sew-it-all Creations",
+          "socials": []
+        },
+        {
+          "id": "1439",
+          "x": 1880,
+          "y": 460,
+          "label": "Happy Taco Studio",
+          "socials": []
+        },
+        {
+          "id": "1437",
+          "x": 1880,
+          "y": 500,
+          "label": "Happy Taco Studio",
+          "socials": []
+        },
+        {
+          "id": "1435",
+          "x": 1880,
+          "y": 560,
+          "label": "Pierre Roussel",
+          "socials": []
+        },
+        {
+          "id": "1433",
+          "x": 1880,
+          "y": 620,
+          "label": "shawneemorrisart",
+          "socials": []
+        },
+        {
+          "id": "1431",
+          "x": 1880,
+          "y": 680,
+          "label": "Melt&Fuze",
+          "socials": []
+        },
+        {
+          "id": "1438",
+          "x": 2040,
+          "y": 460,
+          "label": "Levi",
+          "socials": []
+        },
+        {
+          "id": "1436",
+          "x": 2040,
+          "y": 520,
+          "label": "Stelar Art",
+          "socials": []
+        },
+        {
+          "id": "1434",
+          "x": 2040,
+          "y": 580,
+          "label": "Rou's Shop",
+          "socials": []
+        },
+        {
+          "id": "1432",
+          "x": 2040,
+          "y": 640,
+          "label": "Equinox Comics",
+          "socials": []
+        },
+        {
+          "id": "1430",
+          "x": 2040,
+          "y": 680,
+          "label": "Equinox Comics",
+          "socials": []
+        },
+        {
+          "id": "1399",
+          "x": 2100,
+          "y": 460,
+          "label": "Cousin Charlee Unink",
+          "socials": []
+        },
+        {
+          "id": "1337",
+          "x": 2100,
+          "y": 520,
+          "label": "Cousin Charlee Unink",
+          "socials": []
+        },
+        {
+          "id": "1335",
+          "x": 2100,
+          "y": 580,
+          "label": "Mr. David Fleming Art",
+          "socials": []
+        },
+        {
+          "id": "1333",
+          "x": 2100,
+          "y": 640,
+          "label": "Soultooth Art",
+          "socials": []
+        },
+        {
+          "id": "1331",
+          "x": 2100,
+          "y": 680,
+          "label": "Chely Penn",
+          "socials": []
+        },
+        {
+          "id": "1338",
+          "x": 2260,
+          "y": 460,
+          "label": "Sarah's Art and Cosplay shop",
+          "socials": []
+        },
+        {
+          "id": "1336",
+          "x": 2260,
+          "y": 520,
+          "label": "AJ Whitney Books",
+          "socials": []
+        },
+        {
+          "id": "1334",
+          "x": 2260,
+          "y": 580,
+          "label": "Author A.L. Davidson",
+          "socials": []
+        },
+        {
+          "id": "1332",
+          "x": 2260,
+          "y": 620,
+          "label": "Inner Demon Artwork",
+          "socials": []
+        },
+        {
+          "id": "1330",
+          "x": 2260,
+          "y": 680,
+          "label": "AtomicKawaii",
+          "socials": []
+        },
+        {
+          "id": "1239",
+          "x": 2320,
+          "y": 460,
+          "label": "Gravitysoda Creations",
+          "socials": []
+        },
+        {
+          "id": "1237",
+          "x": 2320,
+          "y": 520,
+          "label": "Chelsea Burton Dunn – Author",
+          "socials": []
+        },
+        {
+          "id": "1235",
+          "x": 2320,
+          "y": 580,
+          "label": "Rinne Kanzaki",
+          "socials": []
+        },
+        {
+          "id": "1233",
+          "x": 2320,
+          "y": 620,
+          "label": "Studio Zolo",
+          "socials": []
+        },
+        {
+          "id": "1231",
+          "x": 2320,
+          "y": 680,
+          "label": "Hyperboost Studio",
+          "socials": []
+        },
+        {
+          "id": "1238",
+          "x": 2500,
+          "y": 460,
+          "socials": []
+        },
+        {
+          "id": "1236",
+          "x": 2500,
+          "y": 520,
+          "label": "Kerbearos",
+          "socials": []
+        },
+        {
+          "id": "1234",
+          "x": 2500,
+          "y": 580,
+          "label": "YBN Studio",
+          "socials": []
+        },
+        {
+          "id": "1232",
+          "x": 2500,
+          "y": 620,
+          "label": "PaletteGhost",
+          "socials": []
+        },
+        {
+          "id": "1230",
+          "x": 2500,
+          "y": 680,
+          "label": "Kehasuk",
+          "socials": []
+        },
+        {
+          "id": "1139",
+          "x": 2540,
+          "y": 460,
+          "label": "Abele, Caitlin",
+          "socials": []
+        },
+        {
+          "id": "1137",
+          "x": 2540,
+          "y": 520,
+          "label": "Tara Crow Arts",
+          "socials": []
+        },
+        {
+          "id": "1135",
+          "x": 2540,
+          "y": 580,
+          "label": "Blu & Gihon",
+          "socials": []
+        },
+        {
+          "id": "1133",
+          "x": 2540,
+          "y": 620,
+          "label": "Violette Designs",
+          "socials": []
+        },
+        {
+          "id": "1131",
+          "x": 2540,
+          "y": 680,
+          "label": "Owloo Art",
+          "socials": []
+        },
+        {
+          "id": "1138",
+          "x": 2720,
+          "y": 460,
+          "label": "Honeypuff Press",
+          "socials": []
+        },
+        {
+          "id": "1136",
+          "x": 2720,
+          "y": 500,
+          "label": "Mutated Creation",
+          "socials": []
+        },
+        {
+          "id": "1134",
+          "x": 2720,
+          "y": 560,
+          "label": "Scribbled by Peach",
+          "socials": []
+        },
+        {
+          "id": "1132",
+          "x": 2720,
+          "y": 620,
+          "label": "INU NO MIMI",
+          "socials": []
+        },
+        {
+          "id": "1130",
+          "x": 2720,
+          "y": 680,
+          "label": "Hey Curvy Pumpkin",
+          "socials": []
+        },
+        {
+          "id": "1039",
+          "x": 2780,
+          "y": 460,
+          "label": "Art of the Joannasaurus",
+          "socials": []
+        },
+        {
+          "id": "1037",
+          "x": 2780,
+          "y": 500,
+          "label": "Art of the Joannasaurus",
+          "socials": []
+        },
+        {
+          "id": "1035",
+          "x": 2780,
+          "y": 560,
+          "label": "Roaming Planchette",
+          "socials": []
+        },
+        {
+          "id": "1033",
+          "x": 2780,
+          "y": 620,
+          "label": "Sarah Joy's Art",
+          "socials": []
+        },
+        {
+          "id": "1031",
+          "x": 2780,
+          "y": 680,
+          "label": "Lydia Perez Artist",
+          "socials": []
+        },
+        {
+          "id": "1720",
+          "x": 1260,
+          "y": 1040,
+          "label": "Armory Quest",
+          "socials": []
+        },
+        {
+          "id": "1615",
+          "x": 1340,
+          "y": 1240,
+          "label": "BBX3D",
+          "socials": []
+        },
+        {
+          "id": "1712",
+          "x": 1260,
+          "y": 1380,
+          "label": "Yarn Dorks",
+          "socials": []
+        },
+        {
+          "id": "1708",
+          "x": 1260,
+          "y": 1480,
+          "label": "Hooked on Sabers",
+          "socials": []
+        },
+        {
+          "id": "1625",
+          "x": 1320,
+          "y": 860,
+          "label": "Mochi & Co.",
+          "socials": []
+        },
+        {
+          "id": "1623",
+          "x": 1320,
+          "y": 940,
+          "label": "CraftComicMania",
+          "socials": []
+        },
+        {
+          "id": "1621",
+          "x": 1320,
+          "y": 1040,
+          "label": "Kokai Island",
+          "socials": []
+        },
+        {
+          "id": "1609",
+          "x": 1340,
+          "y": 1480,
+          "label": "Starship Cat",
+          "socials": []
+        },
+        {
+          "id": "1525",
+          "x": 1640,
+          "y": 880,
+          "label": "HobbyGate",
+          "socials": []
+        },
+        {
+          "id": "1622",
+          "x": 1580,
+          "y": 940,
+          "label": "My Retro Pop",
+          "socials": []
+        },
+        {
+          "id": "1620",
+          "x": 1580,
+          "y": 1040,
+          "label": "Shark Arttack",
+          "socials": []
+        },
+        {
+          "id": "1521",
+          "x": 1640,
+          "y": 1040,
+          "label": "Komikku Villa",
+          "socials": []
+        },
+        {
+          "id": "1612",
+          "x": 1540,
+          "y": 1380,
+          "label": "ToyDump",
+          "socials": []
+        },
+        {
+          "id": "1511",
+          "x": 1660,
+          "y": 1380,
+          "label": "All Blue Anime Inc.",
+          "socials": []
+        },
+        {
+          "id": "1608",
+          "x": 1540,
+          "y": 1480,
+          "label": "NeonBat Creations",
+          "socials": []
+        },
+        {
+          "id": "1509",
+          "x": 1660,
+          "y": 1480,
+          "label": "Zodan Merchandising",
+          "socials": []
+        },
+        {
+          "id": "1522",
+          "x": 1800,
+          "y": 940,
+          "label": "Terry Huddleston Art",
+          "socials": []
+        },
+        {
+          "id": "1520",
+          "x": 1800,
+          "y": 1040,
+          "label": "Oh My Gosh Nails",
+          "socials": []
+        },
+        {
+          "id": "1514",
+          "x": 1780,
+          "y": 1260,
+          "label": "Retro Replay",
+          "socials": []
+        },
+        {
+          "id": "1508",
+          "x": 1800,
+          "y": 1480,
+          "label": "Cartoon Passion",
+          "socials": []
+        },
+        {
+          "id": "1425",
+          "x": 1940,
+          "y": 860,
+          "label": "Leia doodles",
+          "socials": []
+        },
+        {
+          "id": "1423",
+          "x": 1940,
+          "y": 940,
+          "label": "Tanren",
+          "socials": []
+        },
+        {
+          "id": "1421",
+          "x": 1940,
+          "y": 1040,
+          "label": "Hollywood Animation Academy",
+          "socials": []
+        },
+        {
+          "id": "1413",
+          "x": 1880,
+          "y": 1320,
+          "label": "Phillori Phigures",
+          "socials": []
+        },
+        {
+          "id": "1409",
+          "x": 1880,
+          "y": 1480,
+          "label": "Prize Drop",
+          "socials": []
+        },
+        {
+          "id": "1424",
+          "x": 2020,
+          "y": 860,
+          "label": "Otaku Gardens",
+          "socials": []
+        },
+        {
+          "id": "1420",
+          "x": 2020,
+          "y": 1040,
+          "label": "Lady Heather Fashions",
+          "socials": []
+        },
+        {
+          "id": "1412",
+          "x": 2000,
+          "y": 1320,
+          "label": "Pegasus Publishing",
+          "socials": []
+        },
+        {
+          "id": "1408",
+          "x": 2000,
+          "y": 1480,
+          "label": "Lucy's Quest Log",
+          "socials": []
+        },
+        {
+          "id": "1325",
+          "x": 2160,
+          "y": 860,
+          "label": "Tony Santiago Art",
+          "socials": []
+        },
+        {
+          "id": "1323",
+          "x": 2160,
+          "y": 940,
+          "label": "BattoKuma Collectibles",
+          "socials": []
+        },
+        {
+          "id": "1321",
+          "x": 2160,
+          "y": 1040,
+          "label": "Gamer's Heaven",
+          "socials": []
+        },
+        {
+          "id": "1313",
+          "x": 2120,
+          "y": 1320,
+          "label": "Cosplaymoomoo",
+          "socials": []
+        },
+        {
+          "id": "1309",
+          "x": 2120,
+          "y": 1480,
+          "label": "Wantz",
+          "socials": []
+        },
+        {
+          "id": "1225",
+          "x": 2280,
+          "y": 860,
+          "label": "Decade of Excess",
+          "socials": []
+        },
+        {
+          "id": "1221",
+          "x": 2280,
+          "y": 1040,
+          "label": "ESVARS",
+          "socials": []
+        },
+        {
+          "id": "1312",
+          "x": 2260,
+          "y": 1320,
+          "label": "Camobricks, LLC.",
+          "socials": []
+        },
+        {
+          "id": "1310",
+          "x": 2260,
+          "y": 1400,
+          "label": "Cheif3D",
+          "socials": []
+        },
+        {
+          "id": "1209",
+          "x": 2280,
+          "y": 1480,
+          "label": "Total Party Kill Games",
+          "socials": []
+        },
+        {
+          "id": "1211",
+          "x": 2340,
+          "y": 1380,
+          "label": "AnimeStuffStore.com",
+          "socials": []
+        },
+        {
+          "id": "1123",
+          "x": 2520,
+          "y": 940,
+          "label": "Glitchgear.com",
+          "socials": []
+        },
+        {
+          "id": "1220",
+          "x": 2480,
+          "y": 1040,
+          "label": "R.I.P. Cosplay",
+          "socials": []
+        },
+        {
+          "id": "1121",
+          "x": 2560,
+          "y": 1040,
+          "label": "KC MONSTERS",
+          "socials": []
+        },
+        {
+          "id": "1115",
+          "x": 2520,
+          "y": 1260,
+          "label": "Tm toys",
+          "socials": []
+        },
+        {
+          "id": "1212",
+          "x": 2480,
+          "y": 1360,
+          "label": "Woodside Illustrations",
+          "socials": []
+        },
+        {
+          "id": "1113",
+          "x": 2540,
+          "y": 1360,
+          "label": "Awareness society",
+          "socials": []
+        },
+        {
+          "id": "1122",
+          "x": 2640,
+          "y": 920,
+          "label": "Carlos Arts",
+          "socials": []
+        },
+        {
+          "id": "1120",
+          "x": 2640,
+          "y": 1040,
+          "label": "Ariss Art",
+          "socials": []
+        },
+        {
+          "id": "1023",
+          "x": 2740,
+          "y": 920,
+          "label": "Glory's Anime Crystals",
+          "socials": []
+        },
+        {
+          "id": "1021",
+          "x": 2740,
+          "y": 1040,
+          "label": "PEER Pressure Collectibles",
+          "socials": []
+        },
+        {
+          "id": "1013",
+          "x": 2740,
+          "y": 1340,
+          "label": "Mistymountaingaming.com",
+          "socials": []
+        },
+        {
+          "id": "1603",
+          "x": 1400,
+          "y": 1720,
+          "label": "Copper Coast Confections",
+          "socials": []
+        },
+        {
+          "id": "1601",
+          "x": 1400,
+          "y": 1800,
+          "label": "Collectors Universe",
+          "socials": []
+        },
+        {
+          "id": "Information Booth",
+          "x": 1400,
+          "y": 2140,
+          "socials": []
+        },
+        {
+          "id": "1602",
+          "x": 1560,
+          "y": 1720,
+          "label": "Gotta Have It",
+          "socials": []
+        },
+        {
+          "id": "1600",
+          "x": 1560,
+          "y": 1800,
+          "label": "Treasures by Patch",
+          "socials": []
+        },
+        {
+          "id": "1503",
+          "x": 1660,
+          "y": 1720,
+          "label": "Tenzan Studio",
+          "socials": []
+        },
+        {
+          "id": "1501",
+          "x": 1660,
+          "y": 1800,
+          "label": "The Geek Space",
+          "socials": []
+        },
+        {
+          "id": "1502",
+          "x": 1800,
+          "y": 1720,
+          "label": "Meesh Originals",
+          "socials": []
+        },
+        {
+          "id": "1500",
+          "x": 1800,
+          "y": 1800,
+          "label": "Fig Fans",
+          "socials": []
+        },
+        {
+          "id": "1403",
+          "x": 1900,
+          "y": 1720,
+          "label": "NC Illustration",
+          "socials": []
+        },
+        {
+          "id": "1401",
+          "x": 1900,
+          "y": 1800,
+          "label": "Sensiil Studios",
+          "socials": []
+        },
+        {
+          "id": "1303",
+          "x": 2060,
+          "y": 1700,
+          "label": "Shinsekai Project",
+          "socials": []
+        },
+        {
+          "id": "1400",
+          "x": 2020,
+          "y": 1800,
+          "label": "Trippy Vixen Creations",
+          "socials": []
+        },
+        {
+          "id": "1301",
+          "x": 2100,
+          "y": 1800,
+          "socials": [],
+          "label": "Gaming at Joe's"
+        },
+        {
+          "id": "2360",
+          "x": 2260,
+          "y": 2020,
+          "label": "Mental Escape Massage",
+          "socials": []
+        },
+        {
+          "id": "1302",
+          "x": 2260,
+          "y": 1720,
+          "label": "Art By Quinton by NonToxic NerdCulture",
+          "socials": []
+        },
+        {
+          "id": "1300",
+          "x": 2260,
+          "y": 1800,
+          "label": "Koumori Lee",
+          "socials": []
+        },
+        {
+          "id": "1203",
+          "x": 2340,
+          "y": 1720,
+          "label": "Art School Janitor",
+          "socials": []
+        },
+        {
+          "id": "1201",
+          "x": 2340,
+          "y": 1800,
+          "label": "Shane Sauer Art",
+          "socials": []
+        },
+        {
+          "id": "1103",
+          "x": 2500,
+          "y": 1720,
+          "label": "Collectors Rebellion",
+          "socials": []
+        },
+        {
+          "id": "1101",
+          "x": 2500,
+          "y": 1800,
+          "label": "Cross Country Collectibles",
+          "socials": []
+        },
+        {
+          "id": "1003",
+          "x": 2720,
+          "y": 1720,
+          "label": "The Geek Galleria",
+          "socials": []
+        },
+        {
+          "id": "1001",
+          "x": 2720,
+          "y": 1800,
+          "socials": [],
+          "label": "Pixel Empire"
+        },
+        {
+          "id": "2352",
+          "x": 2620,
+          "y": 2000,
+          "socials": []
+        },
+        {
+          "id": "2350",
+          "x": 2720,
+          "y": 2000,
+          "socials": []
+        }
+      ]
+    },
+    "rooms-2101": {
+      "label": "Rooms 2101-2105",
+      "group": "Bartle Hall",
+      "baseImage": "images/rooms-2101-2105.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "rooms-2201": {
+      "label": "Rooms 2201-2215",
+      "group": "Bartle Hall",
+      "baseImage": "images/rooms-2201-2215.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "lobby-2300": {
+      "label": "Lobby 2300",
+      "group": "Bartle Hall",
+      "baseImage": "images/lobby-2300.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-a": {
+      "label": "3501 A",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-A.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-b": {
+      "label": "3501 B",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-B.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-c": {
+      "label": "3501 C",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-C.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-d": {
+      "label": "3501 D",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-D.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-e": {
+      "label": "3501 E",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-E.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-f": {
+      "label": "3501 F",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-F.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-g": {
+      "label": "3501 G",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-G.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-h": {
+      "label": "3501 H",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-H.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "gh-lobby": {
+      "label": "Great Hall Lobby",
+      "group": "Great Hall (3501)",
+      "baseImage": "images/great_hall/great-hall-3501-Lobby.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "panel-room-1500": {
+      "label": "Panel Room 1500",
+      "group": "Conference Center & Grand Ballroom",
+      "baseImage": "images/rooms-1501.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "ballroom": {
+      "label": "Grand Ballroom (2501)",
+      "group": "Conference Center & Grand Ballroom",
+      "baseImage": "images/grand-ballroom-2501.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "rooms-2502": {
+      "label": "Rooms 2502-2505",
+      "group": "Conference Center & Grand Ballroom",
+      "baseImage": "images/rooms-2502-2505.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "exhibition": {
+      "label": "Exhibition Hall",
+      "group": "Municipal Auditorium",
+      "baseImage": "images/exhibition-hall.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "arena": {
+      "label": "Arena",
+      "group": "Municipal Auditorium",
+      "baseImage": "images/arena.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "music": {
+      "label": "Music Hall",
+      "group": "Municipal Auditorium",
+      "baseImage": "images/music-hall.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "little": {
+      "label": "Little Theatre",
+      "group": "Municipal Auditorium",
+      "baseImage": "images/little-theatre.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    }
+  }
+}
