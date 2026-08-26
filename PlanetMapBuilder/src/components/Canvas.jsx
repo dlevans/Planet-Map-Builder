@@ -371,11 +371,27 @@ const Canvas = React.forwardRef(({
         onWheel={handleWheel}
       />
       <div className="canvas-help">
-        <p>
-          <strong>Pan:</strong> Right-click + drag or Middle-click + drag
-          <strong style={{marginLeft: '20px'}}>Zoom:</strong> Ctrl++ / Ctrl+-
-          <strong style={{marginLeft: '20px'}}>Place:</strong> Select tool → Click on canvas
-        </p>
+        <div className="booth-legend">
+          <p className="legend-title">Booth Types</p>
+          <div className="legend-items">
+            <div className="legend-item">
+              <span className="legend-color" style={{ backgroundColor: '#ef4444' }}></span>
+              <span>Celebrity</span>
+            </div>
+            <div className="legend-item">
+              <span className="legend-color" style={{ backgroundColor: '#22c55e' }}></span>
+              <span>Vendor</span>
+            </div>
+            <div className="legend-item">
+              <span className="legend-color" style={{ backgroundColor: '#3b82f6' }}></span>
+              <span>Guest</span>
+            </div>
+            <div className="legend-item">
+              <span className="legend-color" style={{ backgroundColor: '#6b7280' }}></span>
+              <span>Other</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -407,11 +423,12 @@ function drawItem(ctx, item, isSelected, zoom) {
   ctx.rotate(rotation);
   ctx.translate(-(w / 2), -(h / 2));
 
-  ctx.fillStyle = colors[item.type] || '#6b7280';
+  // Use custom color if set, otherwise use default for type
+  ctx.fillStyle = item.color || colors[item.type] || '#6b7280';
   
   // Draw tables with different shapes
   if (item.type === 'table') {
-    ctx.fillStyle = colors[item.type];
+    ctx.fillStyle = item.color || colors[item.type];
     
     if (item.orientation === 'round') {
       const radius = Math.min(w, h) / 2;
@@ -424,7 +441,7 @@ function drawItem(ctx, item, isSelected, zoom) {
   }
   // Draw pipe & drape and separator with patterns
   else if (item.type === 'pipe-and-drape' || item.type === 'separator') {
-    ctx.fillStyle = colors[item.type];
+    ctx.fillStyle = item.color || colors[item.type];
     ctx.fillRect(0, 0, w, h);
     
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
@@ -505,20 +522,37 @@ function drawItem(ctx, item, isSelected, zoom) {
     });
   }
 
-  if (item.label && w > 30 && h > 30) {
-    ctx.fillStyle = '#000';
-    ctx.font = `bold ${Math.min(12 / zoom, Math.max(8 / zoom, w / 6))}px sans-serif`;
+  // Draw label text - centered and counter-rotated for readability
+  if (w > 20 && h > 20) {
+    const displayText = item.label || item.id.substring(0, 8);
+    
+    // Save the current transform state
+    ctx.save();
+    
+    // Move to center of item for counter-rotation
+    ctx.translate(w / 2, h / 2);
+    
+    // Counter-rotate the text so it stays readable
+    // If booth is rotated, text rotates opposite direction
+    ctx.rotate(-(item.rotation || 0) * (Math.PI / 180));
+    
+    // Set up font
+    const fontSize = Math.max(Math.min(w, h) / 3, 12 / zoom);
+    ctx.font = `bold ${fontSize}px sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(item.label, w / 2, h / 2);
-  }
-
-  if (w > 20 && h > 20) {
+    
+    // Draw black stroke around text
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = fontSize / 6;
+    ctx.strokeText(displayText, 0, 0);
+    
+    // Draw white filled text on top
     ctx.fillStyle = '#fff';
-    ctx.font = `${Math.min(10 / zoom, Math.max(6 / zoom, w / 8))}px monospace`;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.fillText(item.id.substring(0, 8), 4, 4);
+    ctx.fillText(displayText, 0, 0);
+    
+    // Restore the transform state
+    ctx.restore();
   }
 
   ctx.restore();

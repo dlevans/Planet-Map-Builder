@@ -139,3 +139,26 @@
   margin-bottom: 4px;
   font-family: 'Courier New', monospace;
 }
+
+.label-input-group {
+  padding: 0 8px 8px 8px;
+}
+
+.label-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.label-input::placeholder {
+  color: #999;
+}
+
+.label-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}

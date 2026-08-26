@@ -13,22 +13,39 @@ function Toolbar({
   canUndo,
   canRedo,
   selectedItemCount,
+  toolLabel,
+  onToolLabelChange,
 }) {
   const tools = [
-    { id: 'select', name: 'Select', icon: '◬', shortcut: 'V' },
-    { id: 'lasso', name: 'Lasso', icon: '⟿', shortcut: 'L' },
+    { id: 'select', name: selectedItemCount > 0 ? 'Move' : 'Select', icon: '◬' },
+    { id: 'lasso', name: 'Lasso', icon: '⟿' },
     { divider: true },
-    { id: 'table', name: 'Table', icon: '■', shortcut: 'T' },
-    { id: 'chair', name: 'Chair', icon: '●', shortcut: 'C' },
-    { id: 'separator', name: 'Separator', icon: '─', shortcut: 'S' },
-    { id: 'pipe-and-drape', name: 'Pipe & Drape', icon: '┃', shortcut: 'P' },
-    { id: 'signage', name: 'Signage', icon: '▲', shortcut: 'G' },
-    { id: 'booth', name: 'Booth', icon: '□', shortcut: 'B' },
+    { id: 'table', name: 'Table', icon: '■' },
+    { id: 'chair', name: 'Chair', icon: '●' },
+    { id: 'separator', name: 'Separator', icon: '─' },
+    { id: 'pipe-and-drape', name: 'Pipe & Drape', icon: '┃' },
+    { id: 'signage', name: 'Signage', icon: '▲' },
+    { id: 'booth', name: 'Booth', icon: '□' },
     { divider: true },
   ];
 
   return (
     <aside className="toolbar">
+      <div className="toolbar-section">
+        <h3 className="toolbar-title">Label</h3>
+        <div className="label-input-group">
+          <input
+            type="text"
+            className="label-input"
+            value={toolLabel}
+            onChange={(e) => onToolLabelChange(e.target.value)}
+            placeholder="Enter booth label"
+          />
+        </div>
+      </div>
+
+      <div className="toolbar-divider" />
+
       <div className="toolbar-section">
         <h3 className="toolbar-title">Tools</h3>
         <div className="tool-group">
@@ -41,7 +58,7 @@ function Toolbar({
                 key={tool.id}
                 className={`tool-button ${selectedTool === tool.id ? 'active' : ''}`}
                 onClick={() => onSelectTool(tool.id)}
-                title={`${tool.name} (${tool.shortcut})`}
+                title={tool.name}
               >
                 <span className="tool-icon">{tool.icon}</span>
                 <span className="tool-label">{tool.name}</span>
@@ -60,7 +77,7 @@ function Toolbar({
             className="action-button"
             onClick={onUndo}
             disabled={!canUndo}
-            title="Undo (Ctrl+Z)"
+            title="Undo"
           >
             ↶ Undo
           </button>
@@ -68,7 +85,7 @@ function Toolbar({
             className="action-button"
             onClick={onRedo}
             disabled={!canRedo}
-            title="Redo (Ctrl+Y)"
+            title="Redo"
           >
             ↷ Redo
           </button>
@@ -84,21 +101,21 @@ function Toolbar({
             className="action-button"
             onClick={onCopy}
             disabled={selectedItemCount === 0}
-            title="Copy (Ctrl+C)"
+            title="Copy"
           >
             ⎘ Copy
           </button>
           <button
             className="action-button"
             onClick={onPaste}
-            title="Paste (Ctrl+V)"
+            title="Paste"
           >
             ◐ Paste
           </button>
           <button
             className="action-button"
             onClick={onSelectAll}
-            title="Select All (Ctrl+A)"
+            title="Select All"
           >
             □ All
           </button>
@@ -106,7 +123,7 @@ function Toolbar({
             className="action-button danger"
             onClick={onDelete}
             disabled={selectedItemCount === 0}
-            title="Delete (Del)"
+            title="Delete"
           >
             × Delete
           </button>
@@ -118,27 +135,6 @@ function Toolbar({
       <div className="toolbar-section toolbar-info">
         <p className="info-label">Selected</p>
         <p className="info-value">{selectedItemCount} item{selectedItemCount !== 1 ? 's' : ''}</p>
-        <p className="info-label" style={{ marginTop: '12px' }}>Tool Shortcuts</p>
-        <ul className="shortcuts-list">
-          <li>V → Select</li>
-          <li>L → Lasso</li>
-          <li>T → Table</li>
-          <li>C → Chair</li>
-          <li>S → Separator</li>
-          <li>P → Pipe & Drape</li>
-          <li>G → Signage</li>
-          <li>B → Booth</li>
-        </ul>
-        <p className="info-label" style={{ marginTop: '12px' }}>Edit Shortcuts</p>
-        <ul className="shortcuts-list">
-          <li>Ctrl+Z → Undo</li>
-          <li>Ctrl+Y → Redo</li>
-          <li>Ctrl+C → Copy</li>
-          <li>Ctrl+V → Paste</li>
-          <li>Ctrl+A → Select All</li>
-          <li>Del → Delete</li>
-          <li>Esc → Deselect</li>
-        </ul>
       </div>
     </aside>
   );

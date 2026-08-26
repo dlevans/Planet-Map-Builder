@@ -17,6 +17,14 @@ const TEMPLATES = {
   },
 };
 
+// Booth category to color mapping
+const BOOTH_COLORS = {
+  'celebrity': '#ef4444',  // Red
+  'vendor': '#22c55e',     // Green
+  'guest': '#3b82f6',      // Blue
+  'other': '#6b7280',      // Gray
+};
+
 // Grid snap size
 const GRID_SIZE = 5;
 
@@ -36,6 +44,8 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const [pendingToolOrientation, setPendingToolOrientation] = useState(null);
+  const [pendingBoothCategory, setPendingBoothCategory] = useState(null);
+  const [toolLabel, setToolLabel] = useState('');
   const canvasRef = useRef(null);
 
   // Load items when room changes
@@ -49,10 +59,14 @@ function App() {
 
   // Handle tool selection with menu for certain tools
   const handleSelectTool = useCallback((toolId) => {
-    if (toolId === 'pipe-and-drape' || toolId === 'separator' || toolId === 'table') {
+    if (toolId === 'pipe-and-drape' || toolId === 'separator' || toolId === 'table' || toolId === 'booth') {
       setActiveMenu(toolId);
       setIsMenuOpen(true);
       setPendingToolOrientation(null);
+      // Reset booth category when selecting booth tool
+      if (toolId === 'booth') {
+        setPendingBoothCategory(null);
+      }
     } else {
       setSelectedTool(toolId);
       setIsMenuOpen(false);
@@ -62,11 +76,18 @@ function App() {
 
   // Handle tool menu selection
   const handleToolMenuSelect = useCallback((orientation) => {
+    // For booth, first selection is category, second is size
+    if (activeMenu === 'booth' && !pendingBoothCategory) {
+      setPendingBoothCategory(orientation);
+      // Keep menu open for size selection
+      return;
+    }
+    
     setSelectedTool(activeMenu);
     setPendingToolOrientation(orientation);
     setIsMenuOpen(false);
     setActiveMenu(null);
-  }, [activeMenu]);
+  }, [activeMenu, pendingBoothCategory]);
 
   // Handle template selection from menu
   const handleTemplateSelect = useCallback((templateKey) => {
@@ -94,7 +115,7 @@ function App() {
           y: snapToGrid(y - template.height / 2),
           type: 'template-image',
           templateKey: templateKey,
-          label: template.name,
+          label: toolLabel || template.name,
           width: template.width,
           height: template.height,
           image: template.image || null, // Allow null initially
@@ -104,6 +125,7 @@ function App() {
         const newItems = [...items, newItem];
         updateItems(newItems);
         setSelectedItems([newItem.id]);
+        setSelectedTool('select');
         return;
       }
 
@@ -149,11 +171,12 @@ function App() {
       const allItems = [...items, ...newItems];
       updateItems(allItems);
       setSelectedItems(newItems.map(item => item.id));
+      setSelectedTool('select');
       return;
     }
 
-    // For pipe-and-drape, separator, and table, require orientation/shape to be set
-    if ((selectedTool === 'pipe-and-drape' || selectedTool === 'separator' || selectedTool === 'table') && !pendingToolOrientation) {
+    // For pipe-and-drape, separator, table, and booth, require orientation/shape to be set
+    if ((selectedTool === 'pipe-and-drape' || selectedTool === 'separator' || selectedTool === 'table' || selectedTool === 'booth') && !pendingToolOrientation) {
       setActiveMenu(selectedTool);
       setIsMenuOpen(true);
       return;
@@ -164,17 +187,20 @@ function App() {
       x: snapToGrid(x),
       y: snapToGrid(y),
       type: selectedTool,
-      label: '',
+      label: toolLabel,
       width: getDefaultWidth(selectedTool, pendingToolOrientation),
       height: getDefaultHeight(selectedTool, pendingToolOrientation),
       orientation: pendingToolOrientation || 'horizontal',
       rotation: 0,
+      // Add booth category color
+      ...(selectedTool === 'booth' && pendingBoothCategory ? { color: BOOTH_COLORS[pendingBoothCategory] } : {}),
     };
 
     const newItems = [...items, newItem];
     updateItems(newItems);
     setSelectedItems([newItem.id]);
-  }, [selectedTool, items, pendingToolOrientation]);
+    setSelectedTool('select');
+  }, [selectedTool, items, pendingToolOrientation, pendingBoothCategory, toolLabel]);
 
   // Handle item selection
   const handleSelectItem = useCallback((itemId, multiSelect = false) => {
@@ -262,36 +288,14 @@ function App() {
     setSelectedItems(items.map(item => item.id));
   }, [items]);
 
-  // Zoom controls
-  const handleZoomIn = useCallback(() => {
-    setZoom(prev => Math.min(prev + 0.1, 3));
-  }, []);
-
-  const handleZoomOut = useCallback(() => {
-    setZoom(prev => Math.max(prev - 0.1, 0.5));
-  }, []);
-
-  const handleZoomReset = useCallback(() => {
-    setZoom(1);
-  }, []);
-
-  // Update items with history
-  const updateItems = (newItems) => {
+  // Update items and add to history
+  const updateItems = useCallback((newItems) => {
     setItems(newItems);
-
     const newHistory = history.slice(0, historyIndex + 1);
     newHistory.push({ items: newItems });
     setHistory(newHistory);
     setHistoryIndex(newHistory.length - 1);
-
-    setRooms(prev => ({
-      ...prev,
-      [selectedRoom]: {
-        ...prev[selectedRoom],
-        booths: newItems,
-      },
-    }));
-  };
+  }, [history, historyIndex]);
 
   // Undo
   const handleUndo = useCallback(() => {
@@ -313,116 +317,38 @@ function App() {
     }
   }, [history, historyIndex]);
 
+  // Zoom in
+  const handleZoomIn = useCallback(() => {
+    setZoom(prev => Math.min(prev + 0.1, 3));
+  }, []);
+
+  // Zoom out
+  const handleZoomOut = useCallback(() => {
+    setZoom(prev => Math.max(prev - 0.1, 0.1));
+  }, []);
+
+  // Reset zoom
+  const handleZoomReset = useCallback(() => {
+    setZoom(1);
+  }, []);
+
   // Export JSON
   const handleExportJSON = useCallback(() => {
-    const exportData = {
-      rooms: Object.fromEntries(
-        Object.entries(rooms).map(([key, room]) => [
-          key,
-          {
-            ...room,
-            booths: room.booths,
-          },
-        ])
-      ),
+    const data = {
+      room: selectedRoom,
+      items,
+      exportedAt: new Date().toISOString(),
     };
-
-    const dataStr = JSON.stringify(exportData, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'map-layout.json';
-    link.click();
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `booths-${selectedRoom}-${Date.now()}.json`;
+    a.click();
     URL.revokeObjectURL(url);
-  }, [rooms]);
+  }, [items, selectedRoom]);
 
-    // Global keyboard shortcuts
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      const activeElement = document.activeElement;
-      const isInputActive =
-        activeElement &&
-        (activeElement.tagName === 'INPUT' ||
-          activeElement.tagName === 'TEXTAREA' ||
-          activeElement.tagName === 'SELECT');
-
-      if (isInputActive) {
-        if (e.key === 'Escape') {
-          activeElement.blur();
-        }
-        return;
-      }
-
-      // CHECK CTRL/CMD COMBINATIONS
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !e.shiftKey) {
-        e.preventDefault();
-        handleUndo();
-        return;
-      }
-
-      if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === 'y' || (e.key.toLowerCase() === 'z' && e.shiftKey))) {
-        e.preventDefault();
-        handleRedo();
-        return;
-      }
-
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
-        e.preventDefault();
-        handleCopy();
-        return;
-      }
-
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v') {
-        e.preventDefault();
-        handlePaste();
-        return;
-      }
-
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'a') {
-        e.preventDefault();
-        handleSelectAll();
-        return;
-      }
-
-      if ((e.ctrlKey || e.metaKey) && (e.key === '+' || e.key === '=')) {
-        e.preventDefault();
-        handleZoomIn();
-        return;
-      }
-
-      if ((e.ctrlKey || e.metaKey) && e.key === '-') {
-        e.preventDefault();
-        handleZoomOut();
-        return;
-      }
-
-      if ((e.ctrlKey || e.metaKey) && e.key === '0') {
-        e.preventDefault();
-        handleZoomReset();
-        return;
-      }
-
-      // DELETE/BACKSPACE AND ESCAPE
-      if ((e.key === 'Delete' || e.key === 'Backspace') && selectedItems.length > 0 && selectedTool === 'select') {
-        e.preventDefault();
-        handleDeleteItems();
-        return;
-      }
-
-      if (e.key === 'Escape') {
-        setSelectedItems([]);
-        setSelectedTool('select');
-        setIsMenuOpen(false);
-        setActiveMenu(null);
-        setPendingToolOrientation(null);
-        return;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedItems, selectedTool, handleUndo, handleRedo, handleCopy, handlePaste, handleSelectAll, handleDeleteItems, handleZoomIn, handleZoomOut, handleZoomReset]);
   // Render tool menu - moved outside as a separate JSX, not a function
   const menuConfigs = {
     'pipe-and-drape': {
@@ -446,9 +372,20 @@ function App() {
         { label: 'Vertical', icon: '▭', value: 'vertical', type: 'shape' },
         { label: 'Horizontal', icon: '▬', value: 'horizontal', type: 'shape' },
         { label: '━━━', icon: '', value: 'divider', type: 'divider' },
-        { label: 'Round Table + 6 Chairs', icon: '◯🪑', value: 'round-table-6', type: 'template' },
-        { label: 'Round Table + 8 Chairs', icon: '◯🪑', value: 'round-table-8', type: 'template' },
         { label: 'Round Table + 10 Chairs', icon: '◯🪑', value: 'round-table-10', type: 'template' },
+      ]
+    },
+    'booth': {
+      title: pendingBoothCategory ? 'Booth Size' : 'Booth Type',
+      options: pendingBoothCategory ? [
+        { label: 'Single', icon: '□', value: 'single', type: 'shape' },
+        { label: 'Horizontal Double', icon: '▬', value: 'horizontal', type: 'shape' },
+        { label: 'Vertical Double', icon: '▭', value: 'vertical', type: 'shape' }
+      ] : [
+        { label: 'Celebrity', icon: '⭐', value: 'celebrity', type: 'category', color: '#ef4444' },
+        { label: 'Vendor', icon: '🛍️', value: 'vendor', type: 'category', color: '#22c55e' },
+        { label: 'Guest', icon: '👤', value: 'guest', type: 'category', color: '#3b82f6' },
+        { label: 'Other', icon: '◯', value: 'other', type: 'category', color: '#6b7280' }
       ]
     }
   };
@@ -467,7 +404,7 @@ function App() {
           <button
             className="btn-icon"
             onClick={handleZoomOut}
-            title="Zoom Out (Ctrl+-)"
+            title="Zoom Out"
           >
             −
           </button>
@@ -475,14 +412,14 @@ function App() {
           <button
             className="btn-icon"
             onClick={handleZoomIn}
-            title="Zoom In (Ctrl++)"
+            title="Zoom In"
           >
             +
           </button>
           <button
             className="btn-icon"
             onClick={handleZoomReset}
-            title="Reset Zoom (Ctrl+0)"
+            title="Reset Zoom"
           >
             ⊙
           </button>
@@ -530,6 +467,8 @@ function App() {
             canUndo={historyIndex > 0}
             canRedo={historyIndex < history.length - 1}
             selectedItemCount={selectedItems.length}
+            toolLabel={toolLabel}
+            onToolLabelChange={setToolLabel}
           />
         )}
 
@@ -568,6 +507,14 @@ function App() {
         <div className="tool-menu-overlay" onClick={() => setIsMenuOpen(false)}>
           <div className="tool-menu" onClick={(e) => e.stopPropagation()}>
             <h3>{config.title}</h3>
+            {pendingBoothCategory && activeMenu === 'booth' && (
+              <button
+                className="menu-back-button"
+                onClick={() => setPendingBoothCategory(null)}
+              >
+                ← Back
+              </button>
+            )}
             {config.options.map(option => {
               if (option.type === 'divider') {
                 return <div key={option.value} className="menu-divider" />;
@@ -576,6 +523,7 @@ function App() {
                 <button
                   key={option.value}
                   className="menu-option"
+                  style={option.color ? { borderLeft: `4px solid ${option.color}` } : {}}
                   onClick={() => {
                     if (option.type === 'template') {
                       handleTemplateSelect(option.value);
@@ -609,6 +557,11 @@ function getDefaultWidth(toolType, orientation = null) {
   if (toolType === 'separator') {
     return orientation === 'vertical' ? 2 : 35;
   }
+  if (toolType === 'booth') {
+    if (orientation === 'horizontal') return 60;
+    if (orientation === 'vertical') return 30;
+    if (orientation === 'single') return 30;
+  }
 
   const widths = {
     chair: 5,
@@ -631,6 +584,11 @@ function getDefaultHeight(toolType, orientation = null) {
   }
   if (toolType === 'separator') {
     return orientation === 'vertical' ? 35 : 2;
+  }
+  if (toolType === 'booth') {
+    if (orientation === 'vertical') return 60;
+    if (orientation === 'horizontal') return 30;
+    if (orientation === 'single') return 30;
   }
 
   const heights = {

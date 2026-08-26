@@ -10,6 +10,10 @@ function PropertiesPanel({ selectedItems, onUpdateItem }) {
     if (!panel) return;
 
     const preventBubble = (e) => {
+      // Don't stop propagation for buttons - let them work
+      if (e.target.tagName === 'BUTTON') {
+        return;
+      }
       e.stopPropagation();
       e.stopImmediatePropagation();
     };
