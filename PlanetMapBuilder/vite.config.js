@@ -14,12 +14,16 @@ export default defineConfig({
     sourcemap: true,
     minify: 'terser',
     rollupOptions: {
-      output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom'],
-        },
-      },
+    output: {
+    manualChunks(id) {
+      if (id.includes('node_modules')) {
+        if (id.includes('react')) {
+          return 'vendor';
+        }
+      }
     },
+  },
+},
   },
   resolve: {
     alias: {
