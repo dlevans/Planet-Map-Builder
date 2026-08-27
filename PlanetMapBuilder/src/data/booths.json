@@ -43,7 +43,7 @@
     "rooms-2101": {
       "label": "Rooms 2101-2105",
       "group": "Bartle Hall",
-      "baseImage": "images/rooms-2101-2105.png",
+      "baseImage": "images/rooms_2101_2105/rooms-2101-2105.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -51,15 +51,7 @@
     "rooms-2201": {
       "label": "Rooms 2201-2215",
       "group": "Bartle Hall",
-      "baseImage": "images/rooms-2201-2215.png",
-      "imageWidth": null,
-      "imageHeight": null,
-      "booths": []
-    },
-    "lobby-2300": {
-      "label": "Lobby 2300",
-      "group": "Bartle Hall",
-      "baseImage": "images/lobby-2300.png",
+      "baseImage": "images/rooms_2201_2215/rooms_2201_2215.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -67,7 +59,7 @@
     "gh-a": {
       "label": "3501 A",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-A.png",
+      "baseImage": "images/great_hall/3501 - A.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -75,7 +67,7 @@
     "gh-b": {
       "label": "3501 B",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-B.png",
+      "baseImage": "images/great_hall/3501 - B.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -83,7 +75,7 @@
     "gh-c": {
       "label": "3501 C",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-C.png",
+      "baseImage": "images/great_hall/3501 - C.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -91,7 +83,7 @@
     "gh-d": {
       "label": "3501 D",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-D.png",
+      "baseImage": "images/great_hall/3501 - D.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -99,7 +91,7 @@
     "gh-e": {
       "label": "3501 E",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-E.png",
+      "baseImage": "images/great_hall/3501 - E.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -107,7 +99,7 @@
     "gh-f": {
       "label": "3501 F",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-F.png",
+      "baseImage": "images/great_hall/3501 - F.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -115,7 +107,7 @@
     "gh-g": {
       "label": "3501 G",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-G.png",
+      "baseImage": "images/great_hall/3501 - G.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -123,7 +115,7 @@
     "gh-h": {
       "label": "3501 H",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-H.png",
+      "baseImage": "images/great_hall/3501 - H.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -131,15 +123,31 @@
     "gh-lobby": {
       "label": "Great Hall Lobby",
       "group": "Great Hall (3501)",
-      "baseImage": "images/great_hall/great-hall-3501-Lobby.png",
+      "baseImage": "images/great_hall/3501 - Lobby.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
     },
-    "panel-room-1500": {
-      "label": "Panel Room 1500",
+    "panel-room-1500A": {
+      "label": "Panel Room 1500 A",
       "group": "Conference Center & Grand Ballroom",
-      "baseImage": "images/rooms-1501.png",
+      "baseImage": "images/room_1500/1500_02.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "panel-room-1500B": {
+      "label": "Panel Room 1500 B",
+      "group": "Conference Center & Grand Ballroom",
+      "baseImage": "images/room_1500/1500_03.png",
+      "imageWidth": null,
+      "imageHeight": null,
+      "booths": []
+    },
+    "panel-room-1500C": {
+      "label": "Panel Room 1500 C",
+      "group": "Conference Center & Grand Ballroom",
+      "baseImage": "images/room_1500/1500_04.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -147,7 +155,7 @@
     "ballroom": {
       "label": "Grand Ballroom (2501)",
       "group": "Conference Center & Grand Ballroom",
-      "baseImage": "images/grand-ballroom-2501.png",
+      "baseImage": "images/grand_ballroom/grand_ballroom.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -155,7 +163,7 @@
     "rooms-2502": {
       "label": "Rooms 2502-2505",
       "group": "Conference Center & Grand Ballroom",
-      "baseImage": "images/rooms-2502-2505.png",
+      "baseImage": "images/rooms_2502_2505/rooms_2502_2505.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -163,7 +171,7 @@
     "exhibition": {
       "label": "Exhibition Hall",
       "group": "Municipal Auditorium",
-      "baseImage": "images/exhibition-hall.png",
+      "baseImage": "images/exhibition_hall/exhibition_hall.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -171,7 +179,7 @@
     "arena": {
       "label": "Arena",
       "group": "Municipal Auditorium",
-      "baseImage": "images/arena.png",
+      "baseImage": "images/arena/arena.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -179,7 +187,7 @@
     "music": {
       "label": "Music Hall",
       "group": "Municipal Auditorium",
-      "baseImage": "images/music-hall.png",
+      "baseImage": "images/music_hall/music_hall.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -187,7 +195,7 @@
     "little": {
       "label": "Little Theatre",
       "group": "Municipal Auditorium",
-      "baseImage": "images/little-theatre.png",
+      "baseImage": "images/little_theater/little_theater.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
