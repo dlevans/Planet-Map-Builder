@@ -387,6 +387,10 @@ const Canvas = React.forwardRef(({
               <span>Guest</span>
             </div>
             <div className="legend-item">
+              <span className="legend-color" style={{ backgroundColor: '#bcff03' }}></span>
+              <span>Info</span>
+            </div>
+            <div className="legend-item">
               <span className="legend-color" style={{ backgroundColor: '#6b7280' }}></span>
               <span>Other</span>
             </div>

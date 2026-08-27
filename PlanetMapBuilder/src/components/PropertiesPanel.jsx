@@ -6,6 +6,7 @@ const BOOTH_CATEGORIES = {
   'celebrity': { label: 'Celebrity', color: '#ef4444' },
   'vendor': { label: 'Vendor', color: '#22c55e' },
   'guest': { label: 'Guest', color: '#3b82f6' },
+  'info': { label: 'Info', color: '#bcff03' },
   'other': { label: 'Other', color: '#6b7280' },
 };
 
@@ -174,6 +175,7 @@ function PropertiesPanel({ selectedItems, onUpdateItem, onBulkUpdateItems }) {
                   <option value="celebrity">Celebrity (Red)</option>
                   <option value="vendor">Vendor (Green)</option>
                   <option value="guest">Guest (Blue)</option>
+                  <option value="info">Info (Yellow)</option>
                   <option value="other">Other (Gray)</option>
                 </select>
               </div>
@@ -308,6 +310,7 @@ function PropertiesPanel({ selectedItems, onUpdateItem, onBulkUpdateItems }) {
               <option value="celebrity">Celebrity (Red)</option>
               <option value="vendor">Vendor (Green)</option>
               <option value="guest">Guest (Blue)</option>
+              <option value="info">Info (Yellow)</option>
               <option value="other">Other (Gray)</option>
             </select>
           </div>

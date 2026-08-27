@@ -21,6 +21,7 @@ const BOOTH_COLORS = {
   'celebrity': '#ef4444',  // Red
   'vendor': '#22c55e',     // Green
   'guest': '#3b82f6',      // Blue
+  'info': '#bcff03',      // Yellow
   'other': '#6b7280',      // Gray
 };
 
@@ -30,36 +31,36 @@ const ROOM_METADATA = {
   'hall-a': {
     label: 'Hall A',
     group: 'Bartle',
-    imageWidth: 1600,
-    imageHeight: 1200,
+    imageWidth: 1916,
+    imageHeight: 2377,
     baseImage: '/images/top_down/bartle_hall/hall-a.png',
   },
   'hall-b': {
     label: 'Hall B',
     group: 'Bartle',
-    imageWidth: 1600,
-    imageHeight: 1200,
+    imageWidth: 1349,
+    imageHeight: 2379,
     baseImage: '/images/top_down/bartle_hall/hall-b.png',
   },
   'hall-c': {
     label: 'Hall C',
     group: 'Bartle',
-    imageWidth: 1600,
-    imageHeight: 1200,
+    imageWidth: 2142,
+    imageHeight: 2373,
     baseImage: '/images/top_down/bartle_hall/hall-c.png',
   },
   'hall-d': {
     label: 'Hall D',
     group: 'Bartle',
-    imageWidth: 1600,
-    imageHeight: 1200,
+    imageWidth: 2594,
+    imageHeight: 2372,
     baseImage: '/images/top_down/bartle_hall/hall-d.png',
   },
   'hall-e': {
     label: 'Hall E',
     group: 'Bartle',
-    imageWidth: 1600,
-    imageHeight: 1200,
+    imageWidth: 2804,
+    imageHeight: 2379,
     baseImage: '/images/top_down/bartle_hall/hall-e.png',
   },
   'great-hall': {
@@ -661,6 +662,7 @@ function App() {
         { label: 'Celebrity', icon: '⭐', value: 'celebrity', type: 'category', color: '#ef4444' },
         { label: 'Vendor', icon: '🛍️', value: 'vendor', type: 'category', color: '#22c55e' },
         { label: 'Guest', icon: '👤', value: 'guest', type: 'category', color: '#3b82f6' },
+        { label: 'Info', icon: 'ℹ️', value: 'info', type: 'category', color: '#bcff03' },
         { label: 'Other', icon: '◯', value: 'other', type: 'category', color: '#6b7280' }
       ]
     }
