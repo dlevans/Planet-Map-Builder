@@ -29,9 +29,27 @@ const BOOTH_COLORS = {
 const GRID_SIZE = 5;
 
 function App() {
-  const [rooms, setRooms] = useState(sampleData.rooms);
+  // Helper functions for localStorage - manage all rooms
+  const saveAllRoomsToLocalStorage = (allRooms) => {
+    localStorage.setItem('all-rooms-data', JSON.stringify(allRooms));
+  };
+
+  const loadAllRoomsFromLocalStorage = () => {
+    const saved = localStorage.getItem('all-rooms-data');
+    return saved ? JSON.parse(saved) : null;
+  };
+
+  // Initialize with saved data or sample data
+  const [rooms, setRooms] = useState(() => {
+    const saved = loadAllRoomsFromLocalStorage();
+    if (saved) {
+      return saved;
+    }
+    return sampleData.rooms;
+  });
+
   const [selectedRoom, setSelectedRoom] = useState('hall-d');
-  const [items, setItems] = useState(sampleData.rooms['hall-d']?.booths || []);
+  const [items, setItems] = useState(rooms['hall-d']?.booths || []);
   const [selectedTool, setSelectedTool] = useState('select');
   const [selectedItems, setSelectedItems] = useState([]);
   const [clipboard, setClipboard] = useState([]);
@@ -47,6 +65,20 @@ function App() {
   const [pendingBoothCategory, setPendingBoothCategory] = useState(null);
   const [toolLabel, setToolLabel] = useState('');
   const canvasRef = useRef(null);
+  const fileInputRef = useRef(null);
+
+  // Save current room's items to rooms state and localStorage
+  useEffect(() => {
+    const updatedRooms = {
+      ...rooms,
+      [selectedRoom]: {
+        ...rooms[selectedRoom],
+        booths: items
+      }
+    };
+    setRooms(updatedRooms);
+    saveAllRoomsToLocalStorage(updatedRooms);
+  }, [items]);
 
   // Load items when room changes
   useEffect(() => {
@@ -125,7 +157,7 @@ function App() {
         const newItems = [...items, newItem];
         updateItems(newItems);
         setSelectedItems([newItem.id]);
-        setSelectedTool('select');
+        setToolLabel('');
         return;
       }
 
@@ -171,7 +203,7 @@ function App() {
       const allItems = [...items, ...newItems];
       updateItems(allItems);
       setSelectedItems(newItems.map(item => item.id));
-      setSelectedTool('select');
+      setToolLabel('');
       return;
     }
 
@@ -199,7 +231,7 @@ function App() {
     const newItems = [...items, newItem];
     updateItems(newItems);
     setSelectedItems([newItem.id]);
-    setSelectedTool('select');
+    setToolLabel('');
   }, [selectedTool, items, pendingToolOrientation, pendingBoothCategory, toolLabel]);
 
   // Handle item selection
@@ -332,11 +364,10 @@ function App() {
     setZoom(1);
   }, []);
 
-  // Export JSON
-  const handleExportJSON = useCallback(() => {
+  // Export all rooms as JSON
+  const handleExportAllRooms = useCallback(() => {
     const data = {
-      room: selectedRoom,
-      items,
+      rooms: rooms,
       exportedAt: new Date().toISOString(),
     };
     const json = JSON.stringify(data, null, 2);
@@ -344,10 +375,80 @@ function App() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `booths-${selectedRoom}-${Date.now()}.json`;
+    a.download = 'all-rooms.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [rooms]);
+
+  // Export current room only
+  const handleExportRoom = useCallback(() => {
+    const data = {
+      room: selectedRoom,
+      items: items,
+    };
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${selectedRoom}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }, [items, selectedRoom]);
+
+  // Import JSON
+  const handleImportJSON = useCallback((event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const json = JSON.parse(e.target?.result);
+        
+        // Check if it's all-rooms format
+        if (json.rooms && typeof json.rooms === 'object') {
+          setRooms(json.rooms);
+          saveAllRoomsToLocalStorage(json.rooms);
+          alert('All rooms imported successfully!');
+        } 
+        // Check if it's single room format (with "booths" or "items" key)
+        else if (json.room && (json.booths || json.items)) {
+          const boothItems = json.booths || json.items;
+          if (Array.isArray(boothItems)) {
+            const updatedRooms = {
+              ...rooms,
+              [json.room]: {
+                ...rooms[json.room],
+                booths: boothItems
+              }
+            };
+            setRooms(updatedRooms);
+            saveAllRoomsToLocalStorage(updatedRooms);
+            alert(`Room "${json.room}" imported successfully!`);
+          } else {
+            alert('Invalid JSON format. Expected booths or items to be an array.');
+          }
+        } 
+        else {
+          alert('Invalid JSON format. Expected either all-rooms.json or a single room file with "booths" or "items" array.');
+        }
+        
+        // Reset file input
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
+      } catch (error) {
+        alert('Failed to parse JSON file: ' + error.message);
+      }
+    };
+    reader.readAsText(file);
+  }, [rooms]);
+
+  // Trigger file input click
+  const handleImportClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
 
   // Render tool menu - moved outside as a separate JSX, not a function
   const menuConfigs = {
@@ -447,8 +548,21 @@ function App() {
           >
             ⚙️
           </button>
-          <button className="btn btn-secondary" onClick={handleExportJSON}>
-            ↓ Export JSON
+          <button className="btn btn-secondary" onClick={handleImportClick}>
+            ↑ Import JSON
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleImportJSON}
+            style={{ display: 'none' }}
+          />
+          <button className="btn btn-secondary" onClick={handleExportRoom}>
+            ↓ Export Room
+          </button>
+          <button className="btn btn-secondary" onClick={handleExportAllRooms}>
+            ↓ Export All
           </button>
         </div>
       </header>
