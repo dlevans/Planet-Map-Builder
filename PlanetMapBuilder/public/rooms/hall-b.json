@@ -1,8 +1,8 @@
 {
   "label": "Hall B",
   "group": "Bartle",
-  "imageWidth": 1600,
-  "imageHeight": 1200,
+  "imageWidth": 1349,
+  "imageHeight": 2379,
   "baseImage": "/images/top_down/bartle_hall/hall-b.png",
   "room": "hall-b",
   "items": []
