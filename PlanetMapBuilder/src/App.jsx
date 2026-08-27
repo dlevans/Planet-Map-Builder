@@ -4,7 +4,6 @@ import Canvas from './components/Canvas';
 import Toolbar from './components/Toolbar';
 import RoomSelector from './components/RoomSelector';
 import PropertiesPanel from './components/PropertiesPanel';
-import sampleData from './data/booths.json';
 
 // Pre-made templates
 const TEMPLATES = {
@@ -25,6 +24,102 @@ const BOOTH_COLORS = {
   'other': '#6b7280',      // Gray
 };
 
+// Room metadata - dimensions and properties for each room
+// These should match the image dimensions from the Map Viewer application
+const ROOM_METADATA = {
+  'hall-a': {
+    label: 'Hall A',
+    group: 'Bartle',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/bartle_hall/hall-a.png',
+  },
+  'hall-b': {
+    label: 'Hall B',
+    group: 'Bartle',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/bartle_hall/hall-b.png',
+  },
+  'hall-c': {
+    label: 'Hall C',
+    group: 'Bartle',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/bartle_hall/hall-c.png',
+  },
+  'hall-d': {
+    label: 'Hall D',
+    group: 'Bartle',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/bartle_hall/hall-d.png',
+  },
+  'hall-e': {
+    label: 'Hall E',
+    group: 'Bartle',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/bartle_hall/hall-e.png',
+  },
+  'great-hall': {
+    label: 'Great Hall',
+    group: 'Great Hall',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },
+  'room-1500': {
+    label: 'Room 1500',
+    group: 'Room 1500',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/room_1500/room-1500.png',
+  },
+  'grand-ballroom': {
+    label: 'Grand Ballroom',
+    group: 'Grand Ballroom',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/grand_ballroom/grand-ballroom.png',
+  },
+  'rooms-2502-2505': {
+    label: 'Rooms 2502-2505',
+    group: 'Rooms 2502-2505',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/rooms_2502_2505/rooms-2502-2505.png',
+  },
+  'exhibition-hall': {
+    label: 'Exhibition Hall',
+    group: 'Exhibition Hall',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/exhibition_hall/exhibition-hall.png',
+  },
+  'arena': {
+    label: 'Arena',
+    group: 'Arena',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/arena/arena.png',
+  },
+  'little-theater': {
+    label: 'Little Theater',
+    group: 'Little Theater',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/little_theater/little-theater.png',
+  },
+  'music-hall': {
+    label: 'Music Hall',
+    group: 'Music Hall',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_down/music_hall/music-hall.png',
+  },
+};
+
 // Grid snap size
 const GRID_SIZE = 5;
 
@@ -39,14 +134,67 @@ function App() {
     return saved ? JSON.parse(saved) : null;
   };
 
-  // Initialize with saved data or sample data
+  // List of room IDs to load
+  const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e'];
+
+  // Initialize with saved data or empty rooms
   const [rooms, setRooms] = useState(() => {
     const saved = loadAllRoomsFromLocalStorage();
     if (saved) {
       return saved;
     }
-    return sampleData.rooms;
+    // Return empty rooms structure initially
+    const emptyRooms = {};
+    ROOM_IDS.forEach(id => {
+      emptyRooms[id] = { booths: [] };
+    });
+    return emptyRooms;
   });
+
+  // Load room JSON files on mount
+  useEffect(() => {
+    async function loadRoomFiles() {
+      try {
+        const loadedRooms = { ...rooms };
+        let anyLoaded = false;
+
+        for (const roomId of ROOM_IDS) {
+          try {
+            const response = await fetch(`/rooms/${roomId}.json`);
+            if (response.ok) {
+              const data = await response.json();
+              
+              // Convert imported format to internal format
+              // The JSON files have metadata + items, we just need the items
+              const items = data.items || data.booths || [];
+              loadedRooms[roomId] = {
+                ...loadedRooms[roomId],
+                booths: items,
+                label: data.label,
+                group: data.group,
+                imageWidth: data.imageWidth,
+                imageHeight: data.imageHeight,
+                baseImage: data.baseImage,
+              };
+              anyLoaded = true;
+            }
+          } catch (err) {
+            // File doesn't exist or fetch failed, skip it
+            console.log(`Could not load /rooms/${roomId}.json`);
+          }
+        }
+
+        if (anyLoaded) {
+          setRooms(loadedRooms);
+          saveAllRoomsToLocalStorage(loadedRooms);
+        }
+      } catch (err) {
+        console.error('Error loading room files:', err);
+      }
+    }
+
+    loadRoomFiles();
+  }, []);
 
   const [selectedRoom, setSelectedRoom] = useState('hall-d');
   const [items, setItems] = useState(rooms['hall-d']?.booths || []);
@@ -283,6 +431,15 @@ function App() {
     }
   }, [items]);
 
+  // Handle bulk update for multiple items at once
+  const handleBulkUpdateItems = useCallback((updates) => {
+    // updates is an object where keys are item IDs and values are the update objects
+    const newItems = items.map(item =>
+      updates[item.id] ? { ...item, ...updates[item.id] } : item
+    );
+    updateItems(newItems);
+  }, [items]);
+
   // Delete selected items
   const handleDeleteItems = useCallback(() => {
     const newItems = items.filter(item => !selectedItems.includes(item.id));
@@ -366,8 +523,18 @@ function App() {
 
   // Export all rooms as JSON
   const handleExportAllRooms = useCallback(() => {
+    // Merge room items with metadata
+    const enrichedRooms = {};
+    for (const [roomId, roomData] of Object.entries(rooms)) {
+      const metadata = ROOM_METADATA[roomId] || {};
+      enrichedRooms[roomId] = {
+        ...metadata,
+        booths: roomData.booths || []
+      };
+    }
+    
     const data = {
-      rooms: rooms,
+      rooms: enrichedRooms,
       exportedAt: new Date().toISOString(),
     };
     const json = JSON.stringify(data, null, 2);
@@ -382,7 +549,9 @@ function App() {
 
   // Export current room only
   const handleExportRoom = useCallback(() => {
+    const metadata = ROOM_METADATA[selectedRoom] || {};
     const data = {
+      ...metadata,
       room: selectedRoom,
       items: items,
     };
@@ -408,18 +577,24 @@ function App() {
         
         // Check if it's all-rooms format
         if (json.rooms && typeof json.rooms === 'object') {
-          setRooms(json.rooms);
-          saveAllRoomsToLocalStorage(json.rooms);
+          // Convert the enriched room format back to internal format if needed
+          const importedRooms = {};
+          for (const [roomId, roomData] of Object.entries(json.rooms)) {
+            importedRooms[roomId] = {
+              booths: roomData.booths || roomData.items || []
+            };
+          }
+          setRooms(importedRooms);
+          saveAllRoomsToLocalStorage(importedRooms);
           alert('All rooms imported successfully!');
         } 
-        // Check if it's single room format (with "booths" or "items" key)
+        // Check if it's single room format (with booths/items and metadata)
         else if (json.room && (json.booths || json.items)) {
           const boothItems = json.booths || json.items;
           if (Array.isArray(boothItems)) {
             const updatedRooms = {
               ...rooms,
               [json.room]: {
-                ...rooms[json.room],
                 booths: boothItems
               }
             };
@@ -613,6 +788,7 @@ function App() {
           <PropertiesPanel
             selectedItems={items.filter(item => selectedItems.includes(item.id))}
             onUpdateItem={handleUpdateItem}
+            onBulkUpdateItems={handleBulkUpdateItems}
           />
         )}
       </div>

@@ -1,7 +1,25 @@
 import React, { useRef, useEffect } from 'react';
 import '../styles/PropertiesPanel.css';
 
-function PropertiesPanel({ selectedItems, onUpdateItem }) {
+// Booth category to color mapping
+const BOOTH_CATEGORIES = {
+  'celebrity': { label: 'Celebrity', color: '#ef4444' },
+  'vendor': { label: 'Vendor', color: '#22c55e' },
+  'guest': { label: 'Guest', color: '#3b82f6' },
+  'other': { label: 'Other', color: '#6b7280' },
+};
+
+// Helper function to get category from color
+const getBoothCategoryFromColor = (color) => {
+  for (const [category, data] of Object.entries(BOOTH_CATEGORIES)) {
+    if (data.color === color) {
+      return category;
+    }
+  }
+  return 'other';
+};
+
+function PropertiesPanel({ selectedItems, onUpdateItem, onBulkUpdateItems }) {
   const panelRef = useRef(null);
 
   // Prevent all events from bubbling to canvas
@@ -46,11 +64,139 @@ function PropertiesPanel({ selectedItems, onUpdateItem }) {
   }
 
   if (selectedItems.length > 1) {
+    const types = [...new Set(selectedItems.map(item => item.type))];
+    const allSameType = types.length === 1;
+    const currentType = types[0];
+
+    // Only allow bulk editing if all items are the same type
+    if (!allSameType) {
+      return (
+        <aside className="properties-panel" ref={panelRef}>
+          <div className="properties-header">
+            <h3>Cannot Bulk Edit</h3>
+          </div>
+
+          <div className="properties-content">
+            <div className="properties-info">
+              <p className="info-text">
+                <strong>{selectedItems.length} items selected</strong>
+              </p>
+              <p className="hint-text">
+                Cannot bulk edit mixed types. Select only items of the same type.
+              </p>
+              <p className="info-text" style={{ marginTop: '10px' }}>
+                <strong>Mixed types:</strong> {types.join(', ')}
+              </p>
+            </div>
+          </div>
+        </aside>
+      );
+    }
+
+    // All items are the same type - enable bulk editing
+    const handleBulkTypeChange = (e) => {
+      const newType = e.target.value;
+      if (!newType) return;
+      const updates = {};
+      selectedItems.forEach(item => {
+        updates[item.id] = { type: newType };
+      });
+      onBulkUpdateItems(updates);
+    };
+
+    const handleBulkCategoryChange = (e) => {
+      const category = e.target.value;
+      if (!category) return;
+      const categoryData = BOOTH_CATEGORIES[category];
+      const updates = {};
+      selectedItems.forEach(item => {
+        updates[item.id] = { color: categoryData.color };
+      });
+      onBulkUpdateItems(updates);
+    };
+
+    const handleBulkLabelChange = (value) => {
+      if (!value.trim()) return;
+      const updates = {};
+      selectedItems.forEach(item => {
+        updates[item.id] = { label: value };
+      });
+      onBulkUpdateItems(updates);
+    };
+
+    const isBooths = currentType === 'booth';
+
     return (
       <aside className="properties-panel" ref={panelRef}>
-        <div className="properties-empty">
-          <p>Multiple items selected</p>
-          <p className="hint">{selectedItems.length} items</p>
+        <div className="properties-header">
+          <h3>Bulk Edit</h3>
+        </div>
+
+        <div className="properties-content">
+          <div className="properties-info">
+            <p className="info-text">
+              <strong>{selectedItems.length} {currentType}s selected</strong>
+            </p>
+          </div>
+
+          <div className="properties-divider" />
+
+          <div className="property-group">
+            <label className="property-label">Change Type</label>
+            <select
+              className="property-select"
+              value=""
+              onChange={handleBulkTypeChange}
+            >
+              <option value="">-- Select new type --</option>
+              <option value="table">Table</option>
+              <option value="chair">Chair</option>
+              <option value="separator">Separator</option>
+              <option value="pipe-and-drape">Pipe & Drape</option>
+              <option value="signage">Signage</option>
+              <option value="booth">Booth</option>
+              <option value="template-image">Template Image</option>
+            </select>
+          </div>
+
+          {isBooths && (
+            <>
+              <div className="properties-divider" />
+              <div className="property-group">
+                <label className="property-label">Booth Category</label>
+                <p className="hint-text">({selectedItems.length} booths)</p>
+                <select
+                  className="property-select"
+                  value=""
+                  onChange={handleBulkCategoryChange}
+                >
+                  <option value="">-- Select category --</option>
+                  <option value="celebrity">Celebrity (Red)</option>
+                  <option value="vendor">Vendor (Green)</option>
+                  <option value="guest">Guest (Blue)</option>
+                  <option value="other">Other (Gray)</option>
+                </select>
+              </div>
+            </>
+          )}
+
+          <div className="properties-divider" />
+
+          <div className="property-group">
+            <label className="property-label">Set Label</label>
+            <input
+              type="text"
+              className="property-input"
+              placeholder={`Label for all ${selectedItems.length} items`}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  handleBulkLabelChange(e.target.value);
+                  e.target.value = '';
+                }
+              }}
+            />
+            <p className="hint-text">Type and press Enter to apply to all</p>
+          </div>
         </div>
       </aside>
     );
@@ -146,6 +292,26 @@ function PropertiesPanel({ selectedItems, onUpdateItem }) {
             <option value="template-image">Template Image</option>
           </select>
         </div>
+
+        {item.type === 'booth' && (
+          <div className="property-group">
+            <label className="property-label">Booth Category</label>
+            <select
+              className="property-select"
+              value={getBoothCategoryFromColor(item.color)}
+              onChange={(e) => {
+                const category = e.target.value;
+                const categoryData = BOOTH_CATEGORIES[category];
+                handleChange('color', categoryData.color);
+              }}
+            >
+              <option value="celebrity">Celebrity (Red)</option>
+              <option value="vendor">Vendor (Green)</option>
+              <option value="guest">Guest (Blue)</option>
+              <option value="other">Other (Gray)</option>
+            </select>
+          </div>
+        )}
 
         {item.type === 'signage' && (
           <div className="property-group">

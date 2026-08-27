@@ -1,0 +1,9 @@
+{
+  "label": "Hall C",
+  "group": "Bartle",
+  "imageWidth": 1600,
+  "imageHeight": 1200,
+  "baseImage": "/images/top_down/bartle_hall/hall-c.png",
+  "room": "hall-c",
+  "items": []
+}
