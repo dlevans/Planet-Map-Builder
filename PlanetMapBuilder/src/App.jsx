@@ -70,12 +70,26 @@ const ROOM_METADATA = {
     imageHeight: 1200,
     baseImage: '/images/top_down/great_hall/great-hall.png',
   },
-  'room-1500': {
-    label: 'Room 1500',
+  'panel-room-1500A': {
+    label: 'Room 1500A',
     group: 'Room 1500',
-    imageWidth: 1600,
-    imageHeight: 1200,
-    baseImage: '/images/top_down/room_1500/room-1500.png',
+    imageWidth: 512,
+    imageHeight: 147,
+    baseImage: '/images/top_down/room_1500/1500_02.png',
+  },
+  'panel-room-1500B': {
+    label: 'Room 1500B',
+    group: 'Room 1500',
+    imageWidth: 512,
+    imageHeight: 216,
+    baseImage: '/images/top_down/room_1500/1500_03.png',
+  },
+  'panel-room-1500C': {
+    label: 'Room 1500C',
+    group: 'Room 1500',
+    imageWidth: 512,
+    imageHeight: 131,
+    baseImage: '/images/top_down/room_1500/1500_04.png',
   },
   'grand-ballroom': {
     label: 'Grand Ballroom',
@@ -136,7 +150,7 @@ function App() {
   };
 
   // List of room IDs to load
-  const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e'];
+  const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e', 'panel-room-1500A', 'panel-room-1500B', 'panel-room-1500C'];
 
   // Initialize with saved data or empty rooms
   const [rooms, setRooms] = useState(() => {
