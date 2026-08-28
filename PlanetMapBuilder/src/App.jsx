@@ -28,47 +28,117 @@ const BOOTH_COLORS = {
 // Room metadata - dimensions and properties for each room
 // These should match the image dimensions from the Map Viewer application
 const ROOM_METADATA = {
-  'hall-a': {
+  'hall-a': { //must match json filename
     label: 'Hall A',
-    group: 'Bartle',
+    group: 'Bartle Hall',
     imageWidth: 1916,
     imageHeight: 2377,
     baseImage: '/images/top_down/bartle_hall/hall-a.png',
   },
   'hall-b': {
     label: 'Hall B',
-    group: 'Bartle',
+    group: 'Bartle Hall',
     imageWidth: 1349,
     imageHeight: 2379,
     baseImage: '/images/top_down/bartle_hall/hall-b.png',
   },
   'hall-c': {
     label: 'Hall C',
-    group: 'Bartle',
+    group: 'Bartle Hall',
     imageWidth: 2142,
     imageHeight: 2373,
     baseImage: '/images/top_down/bartle_hall/hall-c.png',
   },
   'hall-d': {
     label: 'Hall D',
-    group: 'Bartle',
+    group: 'Bartle Hall',
     imageWidth: 2594,
     imageHeight: 2372,
     baseImage: '/images/top_down/bartle_hall/hall-d.png',
   },
   'hall-e': {
     label: 'Hall E',
-    group: 'Bartle',
+    group: 'Bartle Hall',
     imageWidth: 2804,
     imageHeight: 2379,
     baseImage: '/images/top_down/bartle_hall/hall-e.png',
   },
-  'great-hall': {
-    label: 'Great Hall',
+  'gh-a': {
+    label: 'Great Hall A',
     group: 'Great Hall',
-    imageWidth: 1600,
-    imageHeight: 1200,
+    imageWidth: 318,
+    imageHeight: 107,
     baseImage: '/images/top_down/great_hall/great-hall.png',
+  },
+  'gh-b': {
+    label: 'Great Hall B',
+    group: 'Great Hall',
+    imageWidth: 318,
+    imageHeight: 104,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },
+  'gh-c': {
+    label: 'Great Hall C',
+    group: 'Great Hall',
+    imageWidth: 308,
+    imageHeight: 107,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },
+  'gh-d': {
+    label: 'Great Hall D',
+    group: 'Great Hall',
+    imageWidth: 308,
+    imageHeight: 104,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },  
+  'gh-e': {
+    label: 'Great Hall E',
+    group: 'Great Hall',
+    imageWidth: 318,
+    imageHeight: 109,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },
+  'gh-f': {
+    label: 'Great Hall F',
+    group: 'Great Hall',
+    imageWidth: 318,
+    imageHeight: 103,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },
+  'gh-g': {
+    label: 'Great Hall G',
+    group: 'Great Hall',
+    imageWidth: 308,
+    imageHeight: 109,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },
+  'gh-h': {
+    label: 'Great Hall H',
+    group: 'Great Hall',
+    imageWidth: 308,
+    imageHeight: 103,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },  
+  'gh-lobby': {
+    label: 'Great Hall Lobby',
+    group: 'Great Hall',
+    imageWidth: 588,
+    imageHeight: 102,
+    baseImage: '/images/top_down/great_hall/great-hall.png',
+  },    
+  'rooms-2101': {
+    label: 'Rooms 2101-2105',
+    group: 'Rooms 2101-2105',
+    imageWidth: 2467,
+    imageHeight: 1927,
+    baseImage: "/images/rooms_2101_2105/rooms_2101_2105.png",
+  },
+  'rooms-2201': {
+    label: 'Rooms 2201-2215',
+    group: 'Rooms 2201-2215',
+    imageWidth: 1983,
+    imageHeight: 1562,
+    baseImage: "/images/rooms_2201_2215/rooms_2201_2215.png",
   },
   'panel-room-1500A': {
     label: 'Room 1500A',
@@ -150,7 +220,7 @@ function App() {
   };
 
   // List of room IDs to load
-  const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e', 'panel-room-1500A', 'panel-room-1500B', 'panel-room-1500C'];
+  const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e', 'panel-room-1500A', 'panel-room-1500B', 'panel-room-1500C', 'rooms-2101', 'rooms-2201'];
 
   // Initialize with saved data or empty rooms
   const [rooms, setRooms] = useState(() => {
@@ -158,10 +228,13 @@ function App() {
     if (saved) {
       return saved;
     }
-    // Return empty rooms structure initially
+    // Return empty rooms structure with metadata from ROOM_METADATA
     const emptyRooms = {};
     ROOM_IDS.forEach(id => {
-      emptyRooms[id] = { booths: [] };
+      emptyRooms[id] = {
+        booths: [],
+        ...ROOM_METADATA[id],
+      };
     });
     return emptyRooms;
   });
@@ -183,13 +256,14 @@ function App() {
               // The JSON files have metadata + items, we just need the items
               const items = data.items || data.booths || [];
               loadedRooms[roomId] = {
+                ...ROOM_METADATA[roomId],
                 ...loadedRooms[roomId],
                 booths: items,
-                label: data.label,
-                group: data.group,
-                imageWidth: data.imageWidth,
-                imageHeight: data.imageHeight,
-                baseImage: data.baseImage,
+                label: data.label || ROOM_METADATA[roomId]?.label,
+                group: ROOM_METADATA[roomId]?.group,
+                imageWidth: data.imageWidth || ROOM_METADATA[roomId]?.imageWidth,
+                imageHeight: data.imageHeight || ROOM_METADATA[roomId]?.imageHeight,
+                baseImage: data.baseImage || ROOM_METADATA[roomId]?.baseImage,
               };
               anyLoaded = true;
             }

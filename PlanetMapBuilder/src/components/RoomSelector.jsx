@@ -12,6 +12,11 @@ function RoomSelector({ rooms, selectedRoom, onSelectRoom }) {
     return acc;
   }, {});
 
+  // Sort groups alphabetically
+  const sortedGroupEntries = Object.entries(groupedRooms).sort(([groupA], [groupB]) => {
+    return groupA.localeCompare(groupB);
+  });
+
   const toggleGroup = (groupName) => {
     setExpandedGroups(prev => ({
       ...prev,
@@ -25,7 +30,7 @@ function RoomSelector({ rooms, selectedRoom, onSelectRoom }) {
         <h2>Rooms</h2>
       </div>
       <div className="room-list">
-        {Object.entries(groupedRooms).map(([groupName, roomList]) => (
+        {sortedGroupEntries.map(([groupName, roomList]) => (
           <div key={groupName} className="room-group">
             <button
               className="group-toggle"

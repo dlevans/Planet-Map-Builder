@@ -1,4 +1,9 @@
 {
-  "room": "rooms-2201",
+  "label": "Rooms 2201-2215",
+  "group": "Rooms 2201-2215",
+  "imageWidth": 1983,
+  "imageHeight": 1562,
+  "baseImage": "/images/rooms_2201_2215/rooms_2201_2215.png",
+  "room": "2201-2215",
   "items": []
 }
