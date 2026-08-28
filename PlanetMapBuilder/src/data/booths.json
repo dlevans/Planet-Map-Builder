@@ -131,7 +131,7 @@
     "panel-room-1500A": {
       "label": "Panel Room 1500 A",
       "group": "Conference Center & Grand Ballroom",
-      "baseImage": "images/room_1500/1500_02.png",
+      "baseImage": "images/top_down/room_1500/1500_02.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -139,7 +139,7 @@
     "panel-room-1500B": {
       "label": "Panel Room 1500 B",
       "group": "Conference Center & Grand Ballroom",
-      "baseImage": "images/room_1500/1500_03.png",
+      "baseImage": "images/top_down/room_1500/1500_03.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
@@ -147,7 +147,7 @@
     "panel-room-1500C": {
       "label": "Panel Room 1500 C",
       "group": "Conference Center & Grand Ballroom",
-      "baseImage": "images/room_1500/1500_04.png",
+      "baseImage": "images/top_down/room_1500/1500_04.png",
       "imageWidth": null,
       "imageHeight": null,
       "booths": []
