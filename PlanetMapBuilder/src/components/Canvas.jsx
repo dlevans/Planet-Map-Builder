@@ -180,6 +180,10 @@ const Canvas = React.forwardRef(({
 
     for (let i = items.length - 1; i >= 0; i--) {
       const item = items[i];
+      // Skip only items where both x and y are explicitly null
+      if (item.x === null && item.y === null) {
+        continue;
+      }
       if (
         worldX >= item.x &&
         worldX <= item.x + item.width &&
@@ -224,6 +228,14 @@ const Canvas = React.forwardRef(({
       const clickedItem = getItemAt(x, y);
       
       if (clickedItem) {
+        // Only allow dragging if item has valid coordinates
+        if (clickedItem.x === null || clickedItem.y === null) {
+          onSelectItem(clickedItem.id, false);
+          // Don't start dragging - let user place the item first
+          setIsDragging(false);
+          return;
+        }
+
         const isAlreadySelected = selectedItems.includes(clickedItem.id);
         
         if (!isAlreadySelected && !e.ctrlKey && !e.metaKey) {
@@ -285,6 +297,7 @@ const Canvas = React.forwardRef(({
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       setLassoPath(prev => [...prev, { x, y }]);
+    // Canvas.jsx inside handleCanvasMouseMove
     } else if (isDragging && draggedItems.length > 0) {
       const rect = canvasRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -292,19 +305,27 @@ const Canvas = React.forwardRef(({
       const worldX = (x - pan.x) / zoom;
       const worldY = (y - pan.y) / zoom;
 
-      // Calculate new position for first item
       const firstItem = draggedItems[0];
-      const newX = snapToGrid(worldX - dragOffset.x);
-      const newY = snapToGrid(worldY - dragOffset.y);
-      const dx = newX - firstItem.x;
-      const dy = newY - firstItem.y;
+      
+      if (firstItem.x === null || firstItem.y === null) {
+        return;
+      }
+      
+      // New target position for the primary dragged item
+      const targetFirstX = snapToGrid(worldX - dragOffset.x);
+      const targetFirstY = snapToGrid(worldY - dragOffset.y);
 
-      // Move all dragged items by same offset
-      onMoveManyItems(draggedItems.map(item => ({
-        id: item.id,
-        dx,
-        dy
-      })));
+      // Offset applied to all items in the selection
+      const dx = targetFirstX - firstItem.x;
+      const dy = targetFirstY - firstItem.y;
+
+      if (!isNaN(dx) && !isNaN(dy)) {
+        onMoveManyItems(draggedItems.map(item => ({
+          id: item.id,
+          x: item.x + dx,
+          y: item.y + dy
+        })));
+      }
     }
   }, [isDragging, draggedItems, dragOffset, isPanning, panStart, isDrawingLasso, zoom, pan, onMoveManyItems]);
 
@@ -532,7 +553,7 @@ function drawItem(ctx, item, isSelected, zoom, textZoom) {
 
   // Draw label text - centered and counter-rotated for readability
   if (w > 20 && h > 20) {
-    const displayText = item.id;
+    const displayText = item.label;
     
     // Save the current transform state
     ctx.save();

@@ -505,17 +505,22 @@ function App() {
 
   // Handle item property update
   const handleUpdateItem = useCallback((itemId, updates) => {
+    // Only prevent explicit null assignment to coordinates
+    const sanitizedUpdates = { ...updates };
+    if (sanitizedUpdates.x === null) delete sanitizedUpdates.x;
+    if (sanitizedUpdates.y === null) delete sanitizedUpdates.y;
+    
     const newItems = items.map(item =>
-      item.id === itemId ? { ...item, ...updates } : item
+      item.id === itemId ? { ...item, ...sanitizedUpdates } : item
     );
     updateItems(newItems);
     
     // Update template image if it's a template item
-    if (updates.image && items.find(item => item.id === itemId)?.templateKey) {
+    if (sanitizedUpdates.image && items.find(item => item.id === itemId)?.templateKey) {
       const templateKey = items.find(item => item.id === itemId).templateKey;
       const template = TEMPLATES[templateKey];
       if (template) {
-        template.image = updates.image;
+        template.image = sanitizedUpdates.image;
       }
     }
   }, [items]);
