@@ -1,4 +1,53 @@
 {
   "room": "little",
-  "items": []
+  "items": [
+    {
+      "id": "template-round-table-10-1788152700002",
+      "x": 760,
+      "y": 470,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152701063",
+      "x": 765,
+      "y": 355,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152704131",
+      "x": 625,
+      "y": 425,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152705281",
+      "x": 880,
+      "y": 430,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    }
+  ]
 }

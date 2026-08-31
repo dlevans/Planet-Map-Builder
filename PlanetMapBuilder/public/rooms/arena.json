@@ -5,5 +5,18 @@
   "imageHeight": 1200,
   "baseImage": "/images/top_down/arena/arena.png",
   "room": "arena",
-  "items": []
+  "items": [
+    {
+      "id": "template-round-table-10-1788152675553",
+      "x": 350,
+      "y": 485,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    }
+  ]
 }

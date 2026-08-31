@@ -5,5 +5,72 @@
   "imageHeight": 2379,
   "baseImage": "/images/top_down/bartle_hall/hall-b.png",
   "room": "hall-b",
-  "items": []
+  "items": [
+    {
+      "id": "separator-1788152403052",
+      "x": 365,
+      "y": 515,
+      "type": "separator",
+      "label": "",
+      "width": 35,
+      "height": 2,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "separator-1788152403643",
+      "x": 385,
+      "y": 690,
+      "type": "separator",
+      "label": "",
+      "width": 35,
+      "height": 2,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "separator-1788152404306",
+      "x": 385,
+      "y": 905,
+      "type": "separator",
+      "label": "",
+      "width": 35,
+      "height": 2,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "separator-1788152406822",
+      "x": 875,
+      "y": 530,
+      "type": "separator",
+      "label": "",
+      "width": 2,
+      "height": 35,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "separator-1788152407622",
+      "x": 875,
+      "y": 715,
+      "type": "separator",
+      "label": "",
+      "width": 2,
+      "height": 35,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "separator-1788152408283",
+      "x": 870,
+      "y": 895,
+      "type": "separator",
+      "label": "",
+      "width": 2,
+      "height": 35,
+      "orientation": "vertical",
+      "rotation": 0
+    }
+  ]
 }

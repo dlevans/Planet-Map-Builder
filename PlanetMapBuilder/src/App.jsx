@@ -26,9 +26,8 @@ const BOOTH_COLORS = {
 };
 
 // Room metadata - dimensions and properties for each room
-// These should match the image dimensions from the Map Viewer application
 const ROOM_METADATA = {
-  'hall-a': { //must match json filename
+  'hall-a': {
     label: 'Hall A',
     group: 'Bartle Hall',
     imageWidth: 1916,
@@ -205,11 +204,9 @@ const ROOM_METADATA = {
   },
 };
 
-// Grid snap size
 const GRID_SIZE = 5;
 
 function App() {
-  // Helper functions for localStorage - manage all rooms
   const saveAllRoomsToLocalStorage = (allRooms) => {
     localStorage.setItem('all-rooms-data', JSON.stringify(allRooms));
   };
@@ -219,16 +216,13 @@ function App() {
     return saved ? JSON.parse(saved) : null;
   };
 
-  // List of room IDs to load
   const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e', 'panel-room-1500A', 'panel-room-1500B', 'panel-room-1500C', 'rooms-2101', 'rooms-2201'];
 
-  // Initialize with saved data or empty rooms
   const [rooms, setRooms] = useState(() => {
     const saved = loadAllRoomsFromLocalStorage();
     if (saved) {
       return saved;
     }
-    // Return empty rooms structure with metadata from ROOM_METADATA
     const emptyRooms = {};
     ROOM_IDS.forEach(id => {
       emptyRooms[id] = {
@@ -239,7 +233,28 @@ function App() {
     return emptyRooms;
   });
 
-  // Load room JSON files on mount
+  const [selectedRoom, setSelectedRoom] = useState('hall-d');
+  const [items, setItems] = useState(rooms['hall-d']?.booths || []);
+  const [selectedTool, setSelectedTool] = useState('select');
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [clipboard, setClipboard] = useState([]);
+  
+  // Initialize history with initial state on page load
+  const [history, setHistory] = useState(() => [{ items: rooms['hall-d']?.booths || [] }]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [roomsOpen, setRoomsOpen] = useState(true);
+  const [propsOpen, setPropsOpen] = useState(true);
+  const [zoom, setZoom] = useState(1);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
+  const [pendingToolOrientation, setPendingToolOrientation] = useState(null);
+  const [pendingBoothCategory, setPendingBoothCategory] = useState(null);
+  const [toolLabel, setToolLabel] = useState('');
+  const canvasRef = useRef(null);
+  const fileInputRef = useRef(null);
+
   useEffect(() => {
     async function loadRoomFiles() {
       try {
@@ -251,9 +266,6 @@ function App() {
             const response = await fetch(`/rooms/${roomId}.json`);
             if (response.ok) {
               const data = await response.json();
-              
-              // Convert imported format to internal format
-              // The JSON files have metadata + items, we just need the items
               const items = data.items || data.booths || [];
               loadedRooms[roomId] = {
                 ...ROOM_METADATA[roomId],
@@ -268,7 +280,6 @@ function App() {
               anyLoaded = true;
             }
           } catch (err) {
-            // File doesn't exist or fetch failed, skip it
             console.log(`Could not load /rooms/${roomId}.json`);
           }
         }
@@ -276,6 +287,12 @@ function App() {
         if (anyLoaded) {
           setRooms(loadedRooms);
           saveAllRoomsToLocalStorage(loadedRooms);
+          
+          // Capture initial history state once async files are loaded
+          const initialItems = loadedRooms[selectedRoom]?.booths || [];
+          setItems(initialItems);
+          setHistory([{ items: initialItems }]);
+          setHistoryIndex(0);
         }
       } catch (err) {
         console.error('Error loading room files:', err);
@@ -285,54 +302,38 @@ function App() {
     loadRoomFiles();
   }, []);
 
-  const [selectedRoom, setSelectedRoom] = useState('hall-d');
-  const [items, setItems] = useState(rooms['hall-d']?.booths || []);
-  const [selectedTool, setSelectedTool] = useState('select');
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [clipboard, setClipboard] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [historyIndex, setHistoryIndex] = useState(-1);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [roomsOpen, setRoomsOpen] = useState(true);
-  const [propsOpen, setPropsOpen] = useState(true);
-  const [zoom, setZoom] = useState(1);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState(null);
-  const [pendingToolOrientation, setPendingToolOrientation] = useState(null);
-  const [pendingBoothCategory, setPendingBoothCategory] = useState(null);
-  const [toolLabel, setToolLabel] = useState('');
-  const canvasRef = useRef(null);
-  const fileInputRef = useRef(null);
-
-  // Save current room's items to rooms state and localStorage
+  // Save room state safely without reference loops
   useEffect(() => {
-    const updatedRooms = {
-      ...rooms,
-      [selectedRoom]: {
-        ...rooms[selectedRoom],
-        booths: items
+    setRooms(prevRooms => {
+      if (prevRooms[selectedRoom]?.booths === items) {
+        return prevRooms;
       }
-    };
-    setRooms(updatedRooms);
-    saveAllRoomsToLocalStorage(updatedRooms);
-  }, [items]);
+      const updatedRooms = {
+        ...prevRooms,
+        [selectedRoom]: {
+          ...prevRooms[selectedRoom],
+          booths: items
+        }
+      };
+      saveAllRoomsToLocalStorage(updatedRooms);
+      return updatedRooms;
+    });
+  }, [items, selectedRoom]);
 
-  // Load items when room changes
+  // Load items and reset history baseline when room changes
   useEffect(() => {
     const roomItems = rooms[selectedRoom]?.booths || [];
     setItems(roomItems);
     setSelectedItems([]);
     setHistory([{ items: roomItems }]);
     setHistoryIndex(0);
-  }, [selectedRoom, rooms]);
+  }, [selectedRoom]);
 
-  // Handle tool selection with menu for certain tools
   const handleSelectTool = useCallback((toolId) => {
     if (toolId === 'pipe-and-drape' || toolId === 'separator' || toolId === 'table' || toolId === 'booth') {
       setActiveMenu(toolId);
       setIsMenuOpen(true);
       setPendingToolOrientation(null);
-      // Reset booth category when selecting booth tool
       if (toolId === 'booth') {
         setPendingBoothCategory(null);
       }
@@ -343,12 +344,9 @@ function App() {
     }
   }, []);
 
-  // Handle tool menu selection
   const handleToolMenuSelect = useCallback((orientation) => {
-    // For booth, first selection is category, second is size
     if (activeMenu === 'booth' && !pendingBoothCategory) {
       setPendingBoothCategory(orientation);
-      // Keep menu open for size selection
       return;
     }
     
@@ -358,7 +356,6 @@ function App() {
     setActiveMenu(null);
   }, [activeMenu, pendingBoothCategory]);
 
-  // Handle template selection from menu
   const handleTemplateSelect = useCallback((templateKey) => {
     setSelectedTool('table');
     setPendingToolOrientation(`template-${templateKey}`);
@@ -366,17 +363,62 @@ function App() {
     setActiveMenu(null);
   }, []);
 
-  // Handle item placement
+  // Helper to commit new item states to history AND update master room state
+  const commitItemsChange = useCallback((newItems) => {
+    setItems(newItems);
+    
+    setRooms(prevRooms => {
+      const updatedRooms = {
+        ...prevRooms,
+        [selectedRoom]: {
+          ...prevRooms[selectedRoom],
+          booths: newItems
+        }
+      };
+      saveAllRoomsToLocalStorage(updatedRooms);
+      return updatedRooms;
+    });
+  }, [selectedRoom]);
+
+  // Update items and add step to history stack
+  const updateItems = useCallback((newItems) => {
+    commitItemsChange(newItems);
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push({ items: newItems });
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  }, [history, historyIndex, commitItemsChange]);
+
+  // Undo action
+  const handleUndo = useCallback(() => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      const previousItems = history[newIndex].items;
+      setHistoryIndex(newIndex);
+      commitItemsChange(previousItems);
+      setSelectedItems([]);
+    }
+  }, [history, historyIndex, commitItemsChange]);
+
+  // Redo action
+  const handleRedo = useCallback(() => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      const nextItems = history[newIndex].items;
+      setHistoryIndex(newIndex);
+      commitItemsChange(nextItems);
+      setSelectedItems([]);
+    }
+  }, [history, historyIndex, commitItemsChange]);
+
   const handlePlaceItem = useCallback((x, y) => {
     if (selectedTool === 'select' && !pendingToolOrientation?.startsWith('template-')) return;
 
-    // If a template is selected, place all template items
     if (pendingToolOrientation?.startsWith('template-')) {
       const templateKey = pendingToolOrientation.replace('template-', '');
       const template = TEMPLATES[templateKey];
       if (!template) return;
 
-            // Handle image-based templates
       if (template.isImage) {
         const newItem = {
           id: `template-${templateKey}-${Date.now()}`,
@@ -387,7 +429,7 @@ function App() {
           label: toolLabel || template.name,
           width: template.width,
           height: template.height,
-          image: template.image || null, // Allow null initially
+          image: template.image || null,
           rotation: 0,
         };
 
@@ -398,7 +440,6 @@ function App() {
         return;
       }
 
-      // Handle multi-item templates
       const boundingBox = template.items.reduce((acc, item) => {
         const x1 = item.offsetX;
         const y1 = item.offsetY;
@@ -444,7 +485,6 @@ function App() {
       return;
     }
 
-    // For pipe-and-drape, separator, table, and booth, require orientation/shape to be set
     if ((selectedTool === 'pipe-and-drape' || selectedTool === 'separator' || selectedTool === 'table' || selectedTool === 'booth') && !pendingToolOrientation) {
       setActiveMenu(selectedTool);
       setIsMenuOpen(true);
@@ -461,7 +501,6 @@ function App() {
       height: getDefaultHeight(selectedTool, pendingToolOrientation),
       orientation: pendingToolOrientation || 'horizontal',
       rotation: 0,
-      // Add booth category color
       ...(selectedTool === 'booth' && pendingBoothCategory ? { color: BOOTH_COLORS[pendingBoothCategory] } : {}),
     };
 
@@ -469,9 +508,8 @@ function App() {
     updateItems(newItems);
     setSelectedItems([newItem.id]);
     setToolLabel('');
-  }, [selectedTool, items, pendingToolOrientation, pendingBoothCategory, toolLabel]);
+  }, [selectedTool, items, pendingToolOrientation, pendingBoothCategory, toolLabel, updateItems]);
 
-  // Handle item selection
   const handleSelectItem = useCallback((itemId, multiSelect = false) => {
     if (itemId === null) {
       setSelectedItems([]);
@@ -486,26 +524,22 @@ function App() {
     }
   }, []);
 
-  // Handle item movement
   const handleMoveItem = useCallback((itemId, x, y) => {
     const newItems = items.map(item =>
       item.id === itemId ? { ...item, x: snapToGrid(x), y: snapToGrid(y) } : item
     );
     updateItems(newItems);
-  }, [items]);
+  }, [items, updateItems]);
 
-  // Handle moving multiple items at once
   const handleMoveManyItems = useCallback((moves) => {
     const newItems = items.map(item => {
       const move = moves.find(m => m.id === item.id);
       return move ? { ...item, x: snapToGrid(move.x), y: snapToGrid(move.y) } : item;
     });
     updateItems(newItems);
-  }, [items]);
+  }, [items, updateItems]);
 
-  // Handle item property update
   const handleUpdateItem = useCallback((itemId, updates) => {
-    // Only prevent explicit null assignment to coordinates
     const sanitizedUpdates = { ...updates };
     if (sanitizedUpdates.x === null) delete sanitizedUpdates.x;
     if (sanitizedUpdates.y === null) delete sanitizedUpdates.y;
@@ -515,7 +549,6 @@ function App() {
     );
     updateItems(newItems);
     
-    // Update template image if it's a template item
     if (sanitizedUpdates.image && items.find(item => item.id === itemId)?.templateKey) {
       const templateKey = items.find(item => item.id === itemId).templateKey;
       const template = TEMPLATES[templateKey];
@@ -523,25 +556,21 @@ function App() {
         template.image = sanitizedUpdates.image;
       }
     }
-  }, [items]);
+  }, [items, updateItems]);
 
-  // Handle bulk update for multiple items at once
   const handleBulkUpdateItems = useCallback((updates) => {
-    // updates is an object where keys are item IDs and values are the update objects
     const newItems = items.map(item =>
       updates[item.id] ? { ...item, ...updates[item.id] } : item
     );
     updateItems(newItems);
-  }, [items]);
+  }, [items, updateItems]);
 
-  // Delete selected items
   const handleDeleteItems = useCallback(() => {
     const newItems = items.filter(item => !selectedItems.includes(item.id));
     updateItems(newItems);
     setSelectedItems([]);
-  }, [items, selectedItems]);
+  }, [items, selectedItems, updateItems]);
 
-  // Copy selected items
   const handleCopy = useCallback(() => {
     if (selectedItems.length > 0) {
       const itemsToCopy = items.filter(item => selectedItems.includes(item.id));
@@ -549,7 +578,6 @@ function App() {
     }
   }, [items, selectedItems]);
 
-  // Paste items
   const handlePaste = useCallback(() => {
     if (clipboard.length === 0) return;
 
@@ -564,60 +592,25 @@ function App() {
     const newItems = [...items, ...pastedItems];
     updateItems(newItems);
     setSelectedItems(pastedItems.map(item => item.id));
-  }, [clipboard, items]);
+  }, [clipboard, items, updateItems]);
 
-  // Select all items
   const handleSelectAll = useCallback(() => {
     setSelectedItems(items.map(item => item.id));
   }, [items]);
 
-  // Update items and add to history
-  const updateItems = useCallback((newItems) => {
-    setItems(newItems);
-    const newHistory = history.slice(0, historyIndex + 1);
-    newHistory.push({ items: newItems });
-    setHistory(newHistory);
-    setHistoryIndex(newHistory.length - 1);
-  }, [history, historyIndex]);
-
-  // Undo
-  const handleUndo = useCallback(() => {
-    if (historyIndex > 0) {
-      const newIndex = historyIndex - 1;
-      setHistoryIndex(newIndex);
-      setItems(history[newIndex].items);
-      setSelectedItems([]);
-    }
-  }, [history, historyIndex]);
-
-  // Redo
-  const handleRedo = useCallback(() => {
-    if (historyIndex < history.length - 1) {
-      const newIndex = historyIndex + 1;
-      setHistoryIndex(newIndex);
-      setItems(history[newIndex].items);
-      setSelectedItems([]);
-    }
-  }, [history, historyIndex]);
-
-  // Zoom in
   const handleZoomIn = useCallback(() => {
     setZoom(prev => Math.min(prev + 0.1, 3));
   }, []);
 
-  // Zoom out
   const handleZoomOut = useCallback(() => {
     setZoom(prev => Math.max(prev - 0.1, 0.1));
   }, []);
 
-  // Reset zoom
   const handleZoomReset = useCallback(() => {
     setZoom(1);
   }, []);
 
-  // Export all rooms as JSON
   const handleExportAllRooms = useCallback(() => {
-    // Merge room items with metadata
     const enrichedRooms = {};
     for (const [roomId, roomData] of Object.entries(rooms)) {
       const metadata = ROOM_METADATA[roomId] || {};
@@ -641,7 +634,6 @@ function App() {
     URL.revokeObjectURL(url);
   }, [rooms]);
 
-  // Export current room only
   const handleExportRoom = useCallback(() => {
     const metadata = ROOM_METADATA[selectedRoom] || {};
     const data = {
@@ -659,7 +651,6 @@ function App() {
     URL.revokeObjectURL(url);
   }, [items, selectedRoom]);
 
-  // Import JSON
   const handleImportJSON = useCallback((event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -668,10 +659,7 @@ function App() {
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target?.result);
-        
-        // Check if it's all-rooms format
         if (json.rooms && typeof json.rooms === 'object') {
-          // Convert the enriched room format back to internal format if needed
           const importedRooms = {};
           for (const [roomId, roomData] of Object.entries(json.rooms)) {
             importedRooms[roomId] = {
@@ -681,9 +669,7 @@ function App() {
           setRooms(importedRooms);
           saveAllRoomsToLocalStorage(importedRooms);
           alert('All rooms imported successfully!');
-        } 
-        // Check if it's single room format (with booths/items and metadata)
-        else if (json.room && (json.booths || json.items)) {
+        } else if (json.room && (json.booths || json.items)) {
           const boothItems = json.booths || json.items;
           if (Array.isArray(boothItems)) {
             const updatedRooms = {
@@ -698,12 +684,10 @@ function App() {
           } else {
             alert('Invalid JSON format. Expected booths or items to be an array.');
           }
-        } 
-        else {
+        } else {
           alert('Invalid JSON format. Expected either all-rooms.json or a single room file with "booths" or "items" array.');
         }
         
-        // Reset file input
         if (fileInputRef.current) {
           fileInputRef.current.value = '';
         }
@@ -714,12 +698,10 @@ function App() {
     reader.readAsText(file);
   }, [rooms]);
 
-  // Trigger file input click
   const handleImportClick = useCallback(() => {
     fileInputRef.current?.click();
   }, []);
 
-  // Render tool menu - moved outside as a separate JSX, not a function
   const menuConfigs = {
     'pipe-and-drape': {
       title: 'Pipe & Drape Orientation',
@@ -772,68 +754,20 @@ function App() {
         </div>
 
         <div className="zoom-controls">
-          <button
-            className="btn-icon"
-            onClick={handleZoomOut}
-            title="Zoom Out"
-          >
-            −
-          </button>
+          <button className="btn-icon" onClick={handleZoomOut} title="Zoom Out">−</button>
           <span className="zoom-display">{Math.round(zoom * 100)}%</span>
-          <button
-            className="btn-icon"
-            onClick={handleZoomIn}
-            title="Zoom In"
-          >
-            +
-          </button>
-          <button
-            className="btn-icon"
-            onClick={handleZoomReset}
-            title="Reset Zoom"
-          >
-            ⊙
-          </button>
+          <button className="btn-icon" onClick={handleZoomIn} title="Zoom In">+</button>
+          <button className="btn-icon" onClick={handleZoomReset} title="Reset Zoom">⊙</button>
         </div>
 
         <div className="header-actions">
-          <button
-            className="btn-icon"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            title="Toggle Toolbar"
-          >
-            ☰
-          </button>
-          <button
-            className="btn-icon"
-            onClick={() => setRoomsOpen(!roomsOpen)}
-            title="Toggle Rooms"
-          >
-            📋
-          </button>
-          <button
-            className="btn-icon"
-            onClick={() => setPropsOpen(!propsOpen)}
-            title="Toggle Properties"
-          >
-            ⚙️
-          </button>
-          <button className="btn btn-secondary" onClick={handleImportClick}>
-            ↑ Import JSON
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            onChange={handleImportJSON}
-            style={{ display: 'none' }}
-          />
-          <button className="btn btn-secondary" onClick={handleExportRoom}>
-            ↓ Export Room
-          </button>
-          <button className="btn btn-secondary" onClick={handleExportAllRooms}>
-            ↓ Export All
-          </button>
+          <button className="btn-icon" onClick={() => setSidebarOpen(!sidebarOpen)} title="Toggle Toolbar">☰</button>
+          <button className="btn-icon" onClick={() => setRoomsOpen(!roomsOpen)} title="Toggle Rooms">📋</button>
+          <button className="btn-icon" onClick={() => setPropsOpen(!propsOpen)} title="Toggle Properties">⚙️</button>
+          <button className="btn btn-secondary" onClick={handleImportClick}>↑ Import JSON</button>
+          <input ref={fileInputRef} type="file" accept=".json" onChange={handleImportJSON} style={{ display: 'none' }} />
+          <button className="btn btn-secondary" onClick={handleExportRoom}>↓ Export Room</button>
+          <button className="btn btn-secondary" onClick={handleExportAllRooms}>↓ Export All</button>
         </div>
       </header>
 
@@ -893,12 +827,7 @@ function App() {
           <div className="tool-menu" onClick={(e) => e.stopPropagation()}>
             <h3>{config.title}</h3>
             {pendingBoothCategory && activeMenu === 'booth' && (
-              <button
-                className="menu-back-button"
-                onClick={() => setPendingBoothCategory(null)}
-              >
-                ← Back
-              </button>
+              <button className="menu-back-button" onClick={() => setPendingBoothCategory(null)}>← Back</button>
             )}
             {config.options.map(option => {
               if (option.type === 'divider') {
@@ -929,7 +858,6 @@ function App() {
   );
 }
 
-// Helper functions for default dimensions
 function getDefaultWidth(toolType, orientation = null) {
   if (toolType === 'table') {
     if (orientation === 'round') return 20;
@@ -986,7 +914,6 @@ function getDefaultHeight(toolType, orientation = null) {
   return heights[toolType] || 80;
 }
 
-// Snap coordinate to grid
 function snapToGrid(value, gridSize = GRID_SIZE) {
   return Math.round(value / gridSize) * gridSize;
 }

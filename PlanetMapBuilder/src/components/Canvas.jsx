@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import '../styles/Canvas.css';
 
 const imageCache = new Map();
-const loadingCallbacks = new Map();
 
 function loadImage(src, onLoad) {
   if (imageCache.has(src)) {
@@ -13,10 +12,9 @@ function loadImage(src, onLoad) {
     return img;
   }
   
-   const img = new Image();
+  const img = new Image();
   img.crossOrigin = 'anonymous';
   
-  // Call onLoad when image is ready
   if (onLoad) {
     img.addEventListener('load', () => {
       onLoad(img);
@@ -55,11 +53,13 @@ const Canvas = React.forwardRef(({
   const [isDrawingLasso, setIsDrawingLasso] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 2595, height: 2384 });
 
-  // Fixed text zoom multiplier
-  const textZoom = 1.25;
-
   const baseImage = room?.baseImage;
   const imagePath = baseImage ? `${baseImage}` : null;
+
+  // Reset pan state to (0,0) when switching rooms to position top-left corner at viewport origin
+  useEffect(() => {
+    setPan({ x: 0, y: 0 });
+  }, [room?.baseImage, room?.label]);
 
   // Load image once and store in ref
   useEffect(() => {
@@ -79,7 +79,7 @@ const Canvas = React.forwardRef(({
     img.src = imagePath;
   }, [imagePath]);
 
-    // Redraw canvas
+  // Redraw canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -119,24 +119,22 @@ const Canvas = React.forwardRef(({
       ctx.stroke();
     }
 
-    // Draw background image if loaded
+    // Draw background image positioned at (0, 0)
     if (imageRef.current) {
       ctx.drawImage(imageRef.current, 0, 0, imageSize.width, imageSize.height);
     }
 
-    // Draw items and preload template images
+    // Draw items
     items.forEach(item => {
       const isSelected = selectedItems.includes(item.id);
       if (item.type === 'template-image' && item.image) {
-        // Preload template images
         loadImage(item.image, () => {
-          // Trigger redraw when image loads
           if (canvasRef.current) {
             canvasRef.current.dispatchEvent(new Event('imageLoaded'));
           }
         });
       }
-      drawItem(ctx, item, isSelected, zoom, textZoom);
+      drawItem(ctx, item, isSelected, zoom);
     });
 
     // Draw lasso selection
@@ -165,7 +163,6 @@ const Canvas = React.forwardRef(({
     if (!canvas) return;
 
     const handleImageLoaded = () => {
-      // Trigger a re-render by updating a state that affects the draw
       canvas.dispatchEvent(new Event('redraw'));
     };
 
@@ -173,17 +170,14 @@ const Canvas = React.forwardRef(({
     return () => canvas.removeEventListener('imageLoaded', handleImageLoaded);
   }, []);
 
-  // Get item at coordinates (accounting for pan and zoom)
+  // Get item at coordinates
   const getItemAt = useCallback((canvasX, canvasY) => {
     const worldX = (canvasX - pan.x) / zoom;
     const worldY = (canvasY - pan.y) / zoom;
 
     for (let i = items.length - 1; i >= 0; i--) {
       const item = items[i];
-      // Skip only items where both x and y are explicitly null
-      if (item.x === null && item.y === null) {
-        continue;
-      }
+      if (item.x === null && item.y === null) continue;
       if (
         worldX >= item.x &&
         worldX <= item.x + item.width &&
@@ -202,16 +196,7 @@ const Canvas = React.forwardRef(({
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Right click = pan
-    if (e.button === 2) {
-      e.preventDefault();
-      setIsPanning(true);
-      setPanStart({ x, y });
-      return;
-    }
-
-    // Middle mouse button = pan
-    if (e.button === 1) {
+    if (e.button === 2 || e.button === 1) {
       e.preventDefault();
       setIsPanning(true);
       setPanStart({ x, y });
@@ -228,43 +213,27 @@ const Canvas = React.forwardRef(({
       const clickedItem = getItemAt(x, y);
       
       if (clickedItem) {
-        // Only allow dragging if item has valid coordinates
         if (clickedItem.x === null || clickedItem.y === null) {
           onSelectItem(clickedItem.id, false);
-          // Don't start dragging - let user place the item first
           setIsDragging(false);
           return;
         }
 
         const isAlreadySelected = selectedItems.includes(clickedItem.id);
+        const worldX = (x - pan.x) / zoom;
+        const worldY = (y - pan.y) / zoom;
         
         if (!isAlreadySelected && !e.ctrlKey && !e.metaKey) {
           onSelectItem(clickedItem.id, false);
-          const worldX = (x - pan.x) / zoom;
-          const worldY = (y - pan.y) / zoom;
-          setDragOffset({
-            x: worldX - clickedItem.x,
-            y: worldY - clickedItem.y,
-          });
+          setDragOffset({ x: worldX - clickedItem.x, y: worldY - clickedItem.y });
           setDraggedItems([clickedItem]);
         } else if (isAlreadySelected) {
           const itemsToDrag = items.filter(item => selectedItems.includes(item.id));
-          const worldX = (x - pan.x) / zoom;
-          const worldY = (y - pan.y) / zoom;
-          
-          setDragOffset({
-            x: worldX - clickedItem.x,
-            y: worldY - clickedItem.y,
-          });
+          setDragOffset({ x: worldX - clickedItem.x, y: worldY - clickedItem.y });
           setDraggedItems(itemsToDrag);
         } else {
           onSelectItem(clickedItem.id, true);
-          const worldX = (x - pan.x) / zoom;
-          const worldY = (y - pan.y) / zoom;
-          setDragOffset({
-            x: worldX - clickedItem.x,
-            y: worldY - clickedItem.y,
-          });
+          setDragOffset({ x: worldX - clickedItem.x, y: worldY - clickedItem.y });
           setDraggedItems([clickedItem]);
         }
       } else {
@@ -297,7 +266,6 @@ const Canvas = React.forwardRef(({
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       setLassoPath(prev => [...prev, { x, y }]);
-    // Canvas.jsx inside handleCanvasMouseMove
     } else if (isDragging && draggedItems.length > 0) {
       const rect = canvasRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -306,16 +274,10 @@ const Canvas = React.forwardRef(({
       const worldY = (y - pan.y) / zoom;
 
       const firstItem = draggedItems[0];
+      if (firstItem.x === null || firstItem.y === null) return;
       
-      if (firstItem.x === null || firstItem.y === null) {
-        return;
-      }
-      
-      // New target position for the primary dragged item
       const targetFirstX = snapToGrid(worldX - dragOffset.x);
       const targetFirstY = snapToGrid(worldY - dragOffset.y);
-
-      // Offset applied to all items in the selection
       const dx = targetFirstX - firstItem.x;
       const dy = targetFirstY - firstItem.y;
 
@@ -353,13 +315,11 @@ const Canvas = React.forwardRef(({
     setIsPanning(false);
   }, []);
 
-  // Handle mouse wheel for zoom
   const handleWheel = useCallback((e) => {
     if (!e.ctrlKey && !e.metaKey) return;
     e.preventDefault();
   }, []);
 
-  // Resize observer for canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
@@ -426,8 +386,8 @@ const Canvas = React.forwardRef(({
   );
 });
 
-// Helper functions
-function drawItem(ctx, item, isSelected, zoom, textZoom) {
+// Primary render function for items
+function drawItem(ctx, item, isSelected, zoom) {
   const x = item.x;
   const y = item.y;
   const w = item.width;
@@ -452,13 +412,9 @@ function drawItem(ctx, item, isSelected, zoom, textZoom) {
   ctx.rotate(rotation);
   ctx.translate(-(w / 2), -(h / 2));
 
-  // Use custom color if set, otherwise use default for type
   ctx.fillStyle = item.color || colors[item.type] || '#6b7280';
   
-  // Draw tables with different shapes
   if (item.type === 'table') {
-    ctx.fillStyle = item.color || colors[item.type];
-    
     if (item.orientation === 'round') {
       const radius = Math.min(w, h) / 2;
       ctx.beginPath();
@@ -467,12 +423,8 @@ function drawItem(ctx, item, isSelected, zoom, textZoom) {
     } else {
       ctx.fillRect(0, 0, w, h);
     }
-  }
-  // Draw pipe & drape and separator with patterns
-  else if (item.type === 'pipe-and-drape' || item.type === 'separator') {
-    ctx.fillStyle = item.color || colors[item.type];
+  } else if (item.type === 'pipe-and-drape' || item.type === 'separator') {
     ctx.fillRect(0, 0, w, h);
-    
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.lineWidth = 1;
     
@@ -491,48 +443,24 @@ function drawItem(ctx, item, isSelected, zoom, textZoom) {
         ctx.stroke();
       }
     }
-  }
-  // Draw signage - either with image or colored box
-  else if (item.type === 'signage') {
+  } else if (item.type === 'signage' || item.type === 'template-image') {
     if (item.image) {
       const img = loadImage(item.image);
-      if (img.complete && img.naturalWidth > 0) {
-        ctx.drawImage(img, 0, 0, w, h);
-      } else {
-        ctx.fillStyle = colors[item.type];
-        ctx.fillRect(0, 0, w, h);
-      }
-    } else {
-      ctx.fillStyle = colors[item.type];
-      ctx.fillRect(0, 0, w, h);
-    }
-  }
-    // Draw template image
-  else if (item.type === 'template-image') {
-    if (item.image) {
-      const img = loadImage(item.image);
-      // Draw image if loaded, otherwise placeholder
       if (img.complete && img.naturalWidth > 0) {
         ctx.drawImage(img, 0, 0, w, h);
       } else {
         ctx.fillStyle = '#e2e8f0';
         ctx.fillRect(0, 0, w, h);
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(0, 0, w, h);
       }
     } else {
       ctx.fillStyle = '#e2e8f0';
       ctx.fillRect(0, 0, w, h);
-      ctx.strokeStyle = '#cbd5e1';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(0, 0, w, h);
     }
-  }
-  else {
+  } else {
     ctx.fillRect(0, 0, w, h);
   }
 
+  // Draw selection bounding outline & handles
   if (isSelected) {
     ctx.strokeStyle = '#3b82f6';
     ctx.lineWidth = 3 / zoom;
@@ -551,47 +479,63 @@ function drawItem(ctx, item, isSelected, zoom, textZoom) {
     });
   }
 
-  // Draw label text - centered and counter-rotated for readability
-  if (w > 20 && h > 20) {
-    const displayText = item.label;
-    
-    // Save the current transform state
-    ctx.save();
-    
-    // Move to center of item for counter-rotation
-    ctx.translate(w / 2, h / 2);
-    
-    // Counter-rotate the text so it stays readable
-    // If booth is rotated, text rotates opposite direction
-    ctx.rotate(-(item.rotation || 0) * (Math.PI / 180));
-    
-    // Set up font - scales with zoom for better readability
-    // textZoom is an independent multiplier for testing different text sizes
-    const baseSize = Math.max(Math.min(w, h) / 3, 12);
-    const fontSize = baseSize * zoom * textZoom;
-    ctx.font = `bold ${fontSize}px sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    
-    // Draw black stroke around text
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = fontSize / 6;
-    ctx.strokeText(displayText, 0, 0);
-    
-    // Draw white filled text on top
-    ctx.fillStyle = '#fff';
-    ctx.fillText(displayText, 0, 0);
-    
-    // Restore the transform state
-    ctx.restore();
+  // Draw fitted label
+  drawFitText(ctx, item.label, 0, 0, w, h, zoom);
+
+  ctx.restore();
+}
+
+// Dynamic fit text helper
+function drawFitText(ctx, text, x, y, width, height, zoom) {
+  if (!text) return;
+
+  // Don't render text if zoomed out too far
+  if (zoom < 0.45) return;
+
+  const padding = 4;
+  const availableWidth = width - padding * 2;
+  const availableHeight = height - padding * 2;
+
+  let fontSize = Math.min(Math.floor(availableHeight * 0.4), 13);
+  if (fontSize < 8) fontSize = 8;
+
+  ctx.save();
+  ctx.font = `600 ${fontSize}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  // Truncate text with ellipsis if it overflows booth width
+  let truncatedText = text;
+  if (ctx.measureText(truncatedText).width > availableWidth) {
+    while (truncatedText.length > 0 && ctx.measureText(truncatedText + '…').width > availableWidth) {
+      truncatedText = truncatedText.slice(0, -1);
+    }
+    truncatedText += '…';
   }
 
+  const textMetrics = ctx.measureText(truncatedText);
+  const badgeWidth = textMetrics.width + 6;
+  const badgeHeight = fontSize + 4;
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+
+  // White backdrop badge for high-contrast reading
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+  ctx.fillRect(
+    centerX - badgeWidth / 2,
+    centerY - badgeHeight / 2,
+    badgeWidth,
+    badgeHeight
+  );
+
+  // Label text
+  ctx.fillStyle = '#1e293b';
+  ctx.fillText(truncatedText, centerX, centerY);
   ctx.restore();
 }
 
 function pointInPolygon(point, polygon) {
   if (polygon.length < 3) return false;
-  
   let inside = false;
   for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
     const xi = polygon[i].x;

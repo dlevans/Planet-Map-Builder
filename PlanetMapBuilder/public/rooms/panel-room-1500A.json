@@ -1,4 +1,32 @@
 {
+  "label": "Room 1500A",
+  "group": "Room 1500",
+  "imageWidth": 512,
+  "imageHeight": 147,
+  "baseImage": "/images/top_down/room_1500/1500_02.png",
   "room": "panel-room-1500A",
-  "items": []
+  "items": [
+    {
+      "id": "table-1788152715435",
+      "x": 210,
+      "y": 40,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 7,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152717553",
+      "x": 280,
+      "y": 35,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 7,
+      "orientation": "horizontal",
+      "rotation": 0
+    }
+  ]
 }

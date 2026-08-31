@@ -1,4 +1,95 @@
 {
   "room": "exhibition",
-  "items": []
+  "items": [
+    {
+      "id": "template-round-table-10-1788152652050",
+      "x": 355,
+      "y": 155,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152653155",
+      "x": 470,
+      "y": 155,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152657016",
+      "x": 350,
+      "y": 270,
+      "type": "table",
+      "label": "",
+      "width": 7,
+      "height": 20,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152659039",
+      "x": 375,
+      "y": 305,
+      "type": "table",
+      "label": "",
+      "width": 7,
+      "height": 20,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152659949",
+      "x": 410,
+      "y": 335,
+      "type": "table",
+      "label": "",
+      "width": 7,
+      "height": 20,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152661140",
+      "x": 445,
+      "y": 315,
+      "type": "table",
+      "label": "",
+      "width": 7,
+      "height": 20,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152662189",
+      "x": 465,
+      "y": 280,
+      "type": "table",
+      "label": "",
+      "width": 7,
+      "height": 20,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152666668",
+      "x": 415,
+      "y": 245,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    }
+  ]
 }

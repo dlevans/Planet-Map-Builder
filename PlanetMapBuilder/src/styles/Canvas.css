@@ -112,3 +112,26 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
 }
+
+/* Add to the bottom of Canvas.css */
+
+.booth-label-overlay {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  font-weight: 600;
+  color: #1e293b;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 3px;
+  padding: 1px 4px;
+  box-sizing: border-box;
+  font-size: clamp(8px, 1.1vw, 13px);
+  line-height: 1.1;
+  word-break: break-all;
+}

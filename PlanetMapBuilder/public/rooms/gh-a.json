@@ -5,5 +5,63 @@
   "imageHeight": 107,
   "baseImage": "/images/top_down/great_hall/great-hall.png",
   "room": "gh-a",
-  "items": []
+  "items": [
+    {
+      "id": "template-round-table-10-1788149931413",
+      "x": 155,
+      "y": 60,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788149932291",
+      "x": 45,
+      "y": 10,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788149970204",
+      "x": 40,
+      "y": 85,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    },
+    {
+      "id": "chair-1788149978434",
+      "x": 15,
+      "y": 90,
+      "type": "chair",
+      "label": "",
+      "width": 5,
+      "height": 5,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "chair-1788149983372-0.5775656827086056",
+      "x": 175,
+      "y": 50,
+      "type": "chair",
+      "label": "",
+      "width": 5,
+      "height": 5,
+      "orientation": "horizontal",
+      "rotation": 0
+    }
+  ]
 }

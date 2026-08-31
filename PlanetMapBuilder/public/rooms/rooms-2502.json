@@ -1,4 +1,95 @@
 {
   "room": "rooms-2502",
-  "items": []
+  "items": [
+    {
+      "id": "template-round-table-10-1788152501340",
+      "x": 25,
+      "y": 70,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152504699",
+      "x": 70,
+      "y": 100,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152508174",
+      "x": 75,
+      "y": 75,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152514901",
+      "x": 35,
+      "y": 105,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152523195",
+      "x": 30,
+      "y": 170,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 7,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152524231",
+      "x": 75,
+      "y": 170,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 7,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152534974",
+      "x": 25,
+      "y": 200,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 7,
+      "orientation": "horizontal",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152536988",
+      "x": 75,
+      "y": 195,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 7,
+      "orientation": "horizontal",
+      "rotation": 0
+    }
+  ]
 }

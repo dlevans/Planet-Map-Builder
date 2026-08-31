@@ -5,5 +5,17 @@
   "imageHeight": 109,
   "baseImage": "/images/top_down/great_hall/great-hall.png",
   "room": "gh-e",
-  "items": []
+  "items": [
+    {
+      "id": "table-1788152592538",
+      "x": 35,
+      "y": 45,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    }
+  ]
 }

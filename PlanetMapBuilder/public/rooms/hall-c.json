@@ -5,5 +5,172 @@
   "imageHeight": 2373,
   "baseImage": "/images/top_down/bartle_hall/hall-c.png",
   "room": "hall-c",
-  "items": []
+  "items": [
+    {
+      "id": "booth-1788152424802",
+      "x": 570,
+      "y": 520,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#ef4444"
+    },
+    {
+      "id": "booth-1788152425888",
+      "x": 585,
+      "y": 710,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#ef4444"
+    },
+    {
+      "id": "booth-1788152430197",
+      "x": 585,
+      "y": 900,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#22c55e"
+    },
+    {
+      "id": "booth-1788152430986",
+      "x": 585,
+      "y": 1090,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#22c55e"
+    },
+    {
+      "id": "booth-1788152435302",
+      "x": 1045,
+      "y": 515,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#3b82f6"
+    },
+    {
+      "id": "booth-1788152436152",
+      "x": 1050,
+      "y": 705,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#3b82f6"
+    },
+    {
+      "id": "booth-1788152440517",
+      "x": 1065,
+      "y": 895,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#bcff03"
+    },
+    {
+      "id": "booth-1788152441378",
+      "x": 1065,
+      "y": 1070,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#bcff03"
+    },
+    {
+      "id": "booth-1788152445874",
+      "x": 1500,
+      "y": 530,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "booth-1788152446722",
+      "x": 1505,
+      "y": 705,
+      "type": "booth",
+      "label": "",
+      "width": 30,
+      "height": 30,
+      "orientation": "single",
+      "rotation": 0,
+      "color": "#6b7280"
+    },
+    {
+      "id": "pipe-and-drape-1788152451149",
+      "x": 1505,
+      "y": 890,
+      "type": "pipe-and-drape",
+      "label": "",
+      "width": 2,
+      "height": 35,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "pipe-and-drape-1788152452345",
+      "x": 1595,
+      "y": 910,
+      "type": "pipe-and-drape",
+      "label": "",
+      "width": 2,
+      "height": 35,
+      "orientation": "vertical",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152457349",
+      "x": 1440,
+      "y": 1080,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152458031",
+      "x": 1570,
+      "y": 1085,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    }
+  ]
 }

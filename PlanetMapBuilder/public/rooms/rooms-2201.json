@@ -4,6 +4,55 @@
   "imageWidth": 1983,
   "imageHeight": 1562,
   "baseImage": "/images/rooms_2201_2215/rooms_2201_2215.png",
-  "room": "2201-2215",
-  "items": []
+  "room": "rooms-2201",
+  "items": [
+    {
+      "id": "template-round-table-10-1788152750013",
+      "x": 720,
+      "y": 515,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152751230",
+      "x": 795,
+      "y": 270,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152752383",
+      "x": 1145,
+      "y": 370,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    },
+    {
+      "id": "template-round-table-10-1788152753231",
+      "x": 1145,
+      "y": 505,
+      "type": "template-image",
+      "templateKey": "round-table-10",
+      "label": "Round Table + 10 Chairs",
+      "width": 35,
+      "height": 35,
+      "image": "/images/template_images/10chair1table.png",
+      "rotation": 0
+    }
+  ]
 }

@@ -5,5 +5,39 @@
   "imageHeight": 104,
   "baseImage": "/images/top_down/great_hall/great-hall.png",
   "room": "gh-b",
-  "items": []
+  "items": [
+    {
+      "id": "table-1787888393141",
+      "x": 70,
+      "y": 35,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152559298",
+      "x": 10,
+      "y": 35,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    },
+    {
+      "id": "table-1788152560002",
+      "x": 40,
+      "y": 35,
+      "type": "table",
+      "label": "",
+      "width": 20,
+      "height": 20,
+      "orientation": "round",
+      "rotation": 0
+    }
+  ]
 }
