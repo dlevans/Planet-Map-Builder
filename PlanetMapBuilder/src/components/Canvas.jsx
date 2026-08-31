@@ -55,6 +55,9 @@ const Canvas = React.forwardRef(({
   const [isDrawingLasso, setIsDrawingLasso] = useState(false);
   const [imageSize, setImageSize] = useState({ width: 2595, height: 2384 });
 
+  // Fixed text zoom multiplier
+  const textZoom = 1.25;
+
   const baseImage = room?.baseImage;
   const imagePath = baseImage ? `${baseImage}` : null;
 
@@ -133,7 +136,7 @@ const Canvas = React.forwardRef(({
           }
         });
       }
-      drawItem(ctx, item, isSelected, zoom);
+      drawItem(ctx, item, isSelected, zoom, textZoom);
     });
 
     // Draw lasso selection
@@ -274,7 +277,7 @@ const Canvas = React.forwardRef(({
       
       setPan(prev => ({
         x: prev.x + (x - panStart.x),
-        y: prev.y + (y - panStart.y),
+        y: prev.y + (y - panStart.y)
       }));
       setPanStart({ x, y });
     } else if (isDrawingLasso) {
@@ -286,23 +289,24 @@ const Canvas = React.forwardRef(({
       const rect = canvasRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
-      const worldX = (x - pan.x) / zoom - dragOffset.x;
-      const worldY = (y - pan.y) / zoom - dragOffset.y;
-      
-      const moves = draggedItems.map(draggedItem => ({
-        id: draggedItem.id,
-        x: Math.round(worldX + (draggedItem.x - draggedItems[0].x)),
-        y: Math.round(worldY + (draggedItem.y - draggedItems[0].y)),
-      }));
-      
-      if (draggedItems.length > 1) {
-        onMoveManyItems(moves);
-      } else {
-        onMoveItem(draggedItems[0].id, moves[0].x, moves[0].y);
-      }
+      const worldX = (x - pan.x) / zoom;
+      const worldY = (y - pan.y) / zoom;
+
+      // Calculate new position for first item
+      const firstItem = draggedItems[0];
+      const newX = snapToGrid(worldX - dragOffset.x);
+      const newY = snapToGrid(worldY - dragOffset.y);
+      const dx = newX - firstItem.x;
+      const dy = newY - firstItem.y;
+
+      // Move all dragged items by same offset
+      onMoveManyItems(draggedItems.map(item => ({
+        id: item.id,
+        dx,
+        dy
+      })));
     }
-  }, [isPanning, isDrawingLasso, isDragging, draggedItems, dragOffset, zoom, pan, panStart, onMoveItem, onMoveManyItems]);
+  }, [isDragging, draggedItems, dragOffset, isPanning, panStart, isDrawingLasso, zoom, pan, onMoveManyItems]);
 
   // Canvas mouse up
   const handleCanvasMouseUp = useCallback(() => {
@@ -402,7 +406,7 @@ const Canvas = React.forwardRef(({
 });
 
 // Helper functions
-function drawItem(ctx, item, isSelected, zoom) {
+function drawItem(ctx, item, isSelected, zoom, textZoom) {
   const x = item.x;
   const y = item.y;
   const w = item.width;
@@ -528,7 +532,7 @@ function drawItem(ctx, item, isSelected, zoom) {
 
   // Draw label text - centered and counter-rotated for readability
   if (w > 20 && h > 20) {
-    const displayText = item.label || item.id.substring(0, 8);
+    const displayText = item.id;
     
     // Save the current transform state
     ctx.save();
@@ -540,8 +544,10 @@ function drawItem(ctx, item, isSelected, zoom) {
     // If booth is rotated, text rotates opposite direction
     ctx.rotate(-(item.rotation || 0) * (Math.PI / 180));
     
-    // Set up font
-    const fontSize = Math.max(Math.min(w, h) / 3, 12 / zoom);
+    // Set up font - scales with zoom for better readability
+    // textZoom is an independent multiplier for testing different text sizes
+    const baseSize = Math.max(Math.min(w, h) / 3, 12);
+    const fontSize = baseSize * zoom * textZoom;
     ctx.font = `bold ${fontSize}px sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -577,6 +583,10 @@ function pointInPolygon(point, polygon) {
     if (intersect) inside = !inside;
   }
   return inside;
+}
+
+function snapToGrid(value, gridSize = 5) {
+  return Math.round(value / gridSize) * gridSize;
 }
 
 Canvas.displayName = 'Canvas';
