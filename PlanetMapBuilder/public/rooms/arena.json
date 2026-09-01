@@ -3,7 +3,7 @@
   "group": "Arena",
   "imageWidth": 1600,
   "imageHeight": 1200,
-  "baseImage": "/images/top_down/arena/arena.png",
+  "baseImage": "/images/arena/arena.png",
   "room": "arena",
   "items": [
     {

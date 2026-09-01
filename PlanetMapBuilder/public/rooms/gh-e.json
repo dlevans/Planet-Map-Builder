@@ -3,7 +3,7 @@
   "group": "Great Hall",
   "imageWidth": 318,
   "imageHeight": 109,
-  "baseImage": "/images/top_down/great_hall/great-hall.png",
+  "baseImage": "/images/great_hall/3501 - E.png",
   "room": "gh-e",
   "items": [
     {

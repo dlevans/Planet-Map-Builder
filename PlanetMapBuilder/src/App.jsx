@@ -64,66 +64,66 @@ const ROOM_METADATA = {
   },
   'gh-a': {
     label: 'Great Hall A',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 318,
     imageHeight: 107,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - A.png',
   },
   'gh-b': {
     label: 'Great Hall B',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 318,
     imageHeight: 104,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - B.png',
   },
   'gh-c': {
     label: 'Great Hall C',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 308,
     imageHeight: 107,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - C.png',
   },
   'gh-d': {
     label: 'Great Hall D',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 308,
     imageHeight: 104,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - D.png',
   },  
   'gh-e': {
     label: 'Great Hall E',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 318,
     imageHeight: 109,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - E.png',
   },
   'gh-f': {
     label: 'Great Hall F',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 318,
     imageHeight: 103,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - F.png',
   },
   'gh-g': {
     label: 'Great Hall G',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 308,
     imageHeight: 109,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - G.png',
   },
   'gh-h': {
     label: 'Great Hall H',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 308,
     imageHeight: 103,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - H.png',
   },  
   'gh-lobby': {
     label: 'Great Hall Lobby',
-    group: 'Great Hall',
+    group: 'Great Hall (3501)',
     imageWidth: 588,
     imageHeight: 102,
-    baseImage: '/images/top_down/great_hall/great-hall.png',
+    baseImage: '/images/great_hall/3501 - Lobby.png',
   },    
   'rooms-2101': {
     label: 'Rooms 2101-2105',
@@ -165,7 +165,7 @@ const ROOM_METADATA = {
     group: 'Grand Ballroom',
     imageWidth: 1600,
     imageHeight: 1200,
-    baseImage: '/images/top_down/grand_ballroom/grand-ballroom.png',
+    baseImage: '/images/grand_ballroom/grand_ballroom.png',
   },
   'rooms-2502-2505': {
     label: 'Rooms 2502-2505',
@@ -179,29 +179,37 @@ const ROOM_METADATA = {
     group: 'Exhibition Hall',
     imageWidth: 1600,
     imageHeight: 1200,
-    baseImage: '/images/top_down/exhibition_hall/exhibition-hall.png',
+    baseImage: '/images/exhibition_hall/exhibition_hall.png',
   },
   'arena': {
     label: 'Arena',
     group: 'Arena',
     imageWidth: 1600,
     imageHeight: 1200,
-    baseImage: '/images/top_down/arena/arena.png',
+    baseImage: '/images/arena/arena.png',
   },
   'little-theater': {
     label: 'Little Theater',
     group: 'Little Theater',
     imageWidth: 1600,
     imageHeight: 1200,
-    baseImage: '/images/top_down/little_theater/little-theater.png',
+    baseImage: '/images/little_theater/little_theater.png',
   },
   'music-hall': {
     label: 'Music Hall',
     group: 'Music Hall',
     imageWidth: 1600,
     imageHeight: 1200,
-    baseImage: '/images/top_down/music_hall/music-hall.png',
+    baseImage: '/images/music_hall/music_hall.png',
   },
+  'lobby-2300': {
+    label: 'Lobby 2300',
+    group: 'Lobby 2300',
+    imageWidth: 1600,
+    imageHeight: 1200,
+    baseImage: '/images/top_map/lobby-2300.png',
+  },
+
 };
 
 const GRID_SIZE = 5;
@@ -216,7 +224,10 @@ function App() {
     return saved ? JSON.parse(saved) : null;
   };
 
-  const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e', 'panel-room-1500A', 'panel-room-1500B', 'panel-room-1500C', 'rooms-2101', 'rooms-2201'];
+  const ROOM_IDS = ['hall-a', 'hall-b', 'hall-c', 'hall-d', 'hall-e', 'gh-a', 'gh-b', 'gh-c', 
+    'gh-d', 'gh-e', 'gh-f', 'gh-g', 'gh-h', 'gh-lobby', 'panel-room-1500A', 'panel-room-1500B', 
+    'panel-room-1500C', 'rooms-2101', 'rooms-2201','arena','exhibition-hall','grand-ballroom'
+    ,'little-theater','music-hall','lobby-2300','rooms-2502-2505'];
 
   const [rooms, setRooms] = useState(() => {
     const saved = loadAllRoomsFromLocalStorage();

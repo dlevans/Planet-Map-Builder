@@ -1,9 +1,9 @@
 {
   "label": "Great Hall A",
-  "group": "Great Hall",
+  "group": "Great Hall (3501)",
   "imageWidth": 318,
   "imageHeight": 107,
-  "baseImage": "/images/top_down/great_hall/great-hall.png",
+  "baseImage": "/images/great_hall/3501 - A.png",
   "room": "gh-a",
   "items": [
     {
